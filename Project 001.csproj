@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <PackageReference Include="QRCoder" Version="1.6.0" />
+    <PackageReference Include="QRCoder-ImageSharp" Version="0.10.0" />
   </ItemGroup>
 
   <ItemGroup>
