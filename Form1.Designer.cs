@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -38,10 +39,22 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(280, 307);
             label1.Name = "label1";
-            label1.Size = new Size(766, 74);
+            label1.Size = new Size(768, 74);
             label1.TabIndex = 0;
             label1.Text = "Attendance Checker System";
             label1.Click += label1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.White;
+            label2.Font = new Font("Public Sans SemiBold", 17.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(590, 400);
+            label2.Name = "label2";
+            label2.Size = new Size(184, 34);
+            label2.TabIndex = 1;
+            label2.Text = "Krishna Gwapa";
+            label2.Click += label2_Click;
             // 
             // Form1
             // 
@@ -49,6 +62,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 26, 51);
             ClientSize = new Size(1344, 711);
+            Controls.Add(label2);
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
@@ -60,5 +74,6 @@
         #endregion
 
         private Label label1;
+        private Label label2;
     }
 }
