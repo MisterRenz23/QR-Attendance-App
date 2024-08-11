@@ -56,7 +56,7 @@ namespace Project_001
                 if (rd.Read())
                 {
                     this.Hide();
-                    actionPage mf = new actionPage();
+                    Action.actionPage mf = new Action.actionPage();
                     mf.ShowDialog();
                 }
                 else
