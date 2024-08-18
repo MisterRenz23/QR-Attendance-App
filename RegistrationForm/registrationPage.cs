@@ -54,6 +54,8 @@ namespace Project_001
             {
                 //for image
                 MemoryStream ms = new MemoryStream();
+                //pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+                //byte[] Photo = ms.ToArray();
                 pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 byte[] Photo = new byte[ms.Length];
                 ms.Position = 0;
@@ -67,6 +69,12 @@ namespace Project_001
                 command.Parameters.AddWithValue("@photo", Photo);
                 command.ExecuteNonQuery();
                 con.Close();
+                MessageBox.Show("Data Save Successfull !");
+                id_text.Clear();
+                firstName_text.Clear();
+                lastName_text.Clear();
+                pictureBox1.Image = null;
+                //loadbtn_Click(null, null);
 
 
             }
