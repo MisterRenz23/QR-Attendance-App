@@ -90,7 +90,7 @@ namespace Project_001.Action
             rosaryMonth.ForeColor = Color.WhiteSmoke;
             rosaryMonth.Location = new Point(460, 81);
             rosaryMonth.Name = "rosaryMonth";
-            rosaryMonth.Size = new Size(468, 74);
+            rosaryMonth.Size = new Size(469, 74);
             rosaryMonth.TabIndex = 4;
             rosaryMonth.Text = "ROSARY MONTH";
             rosaryMonth.TextAlign = ContentAlignment.TopCenter;
@@ -113,6 +113,7 @@ namespace Project_001.Action
             registerNewBtn.Text = "Register New Account";
             registerNewBtn.TextColor = Color.WhiteSmoke;
             registerNewBtn.UseVisualStyleBackColor = false;
+            registerNewBtn.Click += registerNewBtn_Click;
             // 
             // checkAttendanceBtn
             // 
@@ -133,6 +134,7 @@ namespace Project_001.Action
             checkAttendanceBtn.Text = "Check Attendance Now";
             checkAttendanceBtn.TextColor = Color.WhiteSmoke;
             checkAttendanceBtn.UseVisualStyleBackColor = false;
+            checkAttendanceBtn.Click += checkAttendanceBtn_Click;
             // 
             // actionPage
             // 

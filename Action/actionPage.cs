@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Project_001.Action
+
 {
     public partial class actionPage : Form
     {
@@ -31,6 +32,23 @@ namespace Project_001.Action
         private void checkattendanceButton_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void checkAttendanceBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void registerNewBtn_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the registrationPage form
+            registrationPage regPage = new registrationPage();
+
+            // Show the registrationPage form
+            regPage.Show();
+
+            // Close the current actionPage form
+            this.Close();
         }
     }
 }

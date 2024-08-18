@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Project_001.Action;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Project_001
+
 {
     public partial class registrationPage : Form
     {
@@ -20,6 +22,9 @@ namespace Project_001
         {
             InitializeComponent();
             con.ConnectionString = @"server=localhost;database=user_infotb;userid=root;password=;";
+
+            // Subscribe to the FormClosing event
+            this.FormClosing += new FormClosingEventHandler(registrationPage_FormClosing);
         }
         string Gender;
 
@@ -96,8 +101,16 @@ namespace Project_001
             if (fd.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image = Image.FromFile(fd.FileName);
-
             }
+        }
+
+        private void registrationPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Create an instance of the actionPage form
+            actionPage actionPg = new actionPage();
+
+            // Show the actionPage form
+            actionPg.Show();
         }
     }
 }
