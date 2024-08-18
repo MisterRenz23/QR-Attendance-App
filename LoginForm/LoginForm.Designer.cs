@@ -54,6 +54,7 @@
             user_text.Name = "user_text";
             user_text.Size = new Size(175, 23);
             user_text.TabIndex = 2;
+            user_text.Text = "admin";
             user_text.TextChanged += textBox1_TextChanged;
             // 
             // label2
@@ -84,6 +85,7 @@
             password_text.Name = "password_text";
             password_text.Size = new Size(175, 23);
             password_text.TabIndex = 2;
+            password_text.Text = "admin";
             password_text.TextChanged += textBox2_TextChanged;
             // 
             // button1

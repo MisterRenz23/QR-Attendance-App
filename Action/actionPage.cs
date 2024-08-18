@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace Project_001.Action
 
 {
@@ -16,6 +18,7 @@ namespace Project_001.Action
         public actionPage()
         {
             InitializeComponent();
+           
         }
 
         private void digitalClock_Tick(object sender, EventArgs e)
@@ -36,6 +39,9 @@ namespace Project_001.Action
 
         private void checkAttendanceBtn_Click(object sender, EventArgs e)
         {
+            mainScreenPage mainscreenPage = new mainScreenPage();
+            mainscreenPage.Show();
+            this.Close();
 
         }
 
