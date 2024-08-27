@@ -24,26 +24,26 @@ namespace Project_001
             con.ConnectionString = @"server=localhost;database=user_infotb;userid=root;password=;";
 
             // Subscribe to the FormClosing event
-            this.FormClosing += new FormClosingEventHandler(registrationPage_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(RegistrationPage_FormClosing);
         }
         string Gender;
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void Label4_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
             Gender = "Male";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             //for qrcode generator
             QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
@@ -97,12 +97,12 @@ namespace Project_001
 
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
             Gender = "Female";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             //for upload image
             OpenFileDialog fd = new OpenFileDialog();
@@ -112,13 +112,15 @@ namespace Project_001
             }
         }
 
-        private void registrationPage_FormClosing(object sender, FormClosingEventArgs e)
+        private void RegistrationPage_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Create an instance of the actionPage form
-            actionPage actionPg = new actionPage();
+            // Directly instantiate and show the actionPage form
+            new actionPage().Show();
+        }
 
-            // Show the actionPage form
-            actionPg.Show();
+        private void Button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

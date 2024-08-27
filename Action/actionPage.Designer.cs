@@ -57,7 +57,7 @@ namespace Project_001.Action
             // 
             digitalClock.Enabled = true;
             digitalClock.Interval = 5;
-            digitalClock.Tick += digitalClock_Tick;
+            digitalClock.Tick += DigitalClock_Tick;
             // 
             // digitalDate
             // 
@@ -113,7 +113,7 @@ namespace Project_001.Action
             registerNewBtn.Text = "Register New Account";
             registerNewBtn.TextColor = Color.WhiteSmoke;
             registerNewBtn.UseVisualStyleBackColor = false;
-            registerNewBtn.Click += registerNewBtn_Click;
+            registerNewBtn.Click += RegisterNewBtn_Click;
             // 
             // checkAttendanceBtn
             // 
@@ -134,7 +134,7 @@ namespace Project_001.Action
             checkAttendanceBtn.Text = "Check Attendance Now";
             checkAttendanceBtn.TextColor = Color.WhiteSmoke;
             checkAttendanceBtn.UseVisualStyleBackColor = false;
-            checkAttendanceBtn.Click += checkAttendanceBtn_Click;
+            checkAttendanceBtn.Click += CheckAttendanceBtn_Click;
             // 
             // actionPage
             // 
@@ -154,7 +154,7 @@ namespace Project_001.Action
             Name = "actionPage";
             Text = "Action Page";
             TransparencyKey = Color.Transparent;
-            Load += actionPage_Load_1;
+            Load += ActionPage_Load_1;
             ResumeLayout(false);
             PerformLayout();
         }

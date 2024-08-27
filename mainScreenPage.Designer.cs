@@ -64,7 +64,7 @@
             id_text.Name = "id_text";
             id_text.Size = new Size(175, 23);
             id_text.TabIndex = 14;
-            id_text.TextChanged += txtId_TextChanged;
+            id_text.TextChanged += TxtId_TextChanged;
             // 
             // label1
             // 
@@ -170,7 +170,7 @@
             Controls.Add(label2);
             Name = "mainScreenPage";
             Text = "mainScreenPage";
-            Load += mainScreenPage_Load;
+            Load += MainScreenPage_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

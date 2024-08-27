@@ -43,7 +43,7 @@ namespace Project_001
         }
 
         // Event handler for when the ID TextBox receives input
-        private void txtId_TextChanged(object sender, EventArgs e)
+        private void TxtId_TextChanged(object sender, EventArgs e)
         {
             inputTimer.Stop();
             inputTimer.Start();
@@ -131,7 +131,7 @@ namespace Project_001
         }
 
 
-        private void mainScreenPage_Load(object sender, EventArgs e)
+        private void MainScreenPage_Load(object sender, EventArgs e)
         {
 
         }
