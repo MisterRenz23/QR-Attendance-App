@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Timers;
+using Project_001.Action;
 
 namespace Project_001
 {
@@ -19,7 +20,8 @@ namespace Project_001
         private string connectionString = @"server=localhost;database=user_infotb;userid=root;password=;";
         private System.Windows.Forms.Timer inputTimer;
         private bool inputInProgress = false;
-     
+        private bool isNavigatingToAnotherForm = false;
+
         public mainScreenPage()
         {
             InitializeComponent();
@@ -28,7 +30,8 @@ namespace Project_001
             inputTimer.Tick += InputTimer_Tick;
             id_text.Location = new Point(-1000, -1000);
 
-
+            // Attach the FormClosed event
+            this.FormClosed += mainScreenPage_FormClosed;
 
 
             scanned_id.Enabled = false;
@@ -40,6 +43,16 @@ namespace Project_001
             id_text.TabIndex = 0;
             id_text.Focus();
 
+        }
+
+        private void mainScreenPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Only reopen the actionPage if not navigating to another form
+            if (!isNavigatingToAnotherForm)
+            {
+                actionPage actionForm = new actionPage();
+                actionForm.Show();
+            }
         }
 
         // Event handler for when the ID TextBox receives input
@@ -77,14 +90,13 @@ namespace Project_001
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ID", id);
-                        
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 // Populate the textboxes with user details
-                                 id_text.Text = string.Empty;
+                                id_text.Text = string.Empty;
                                 scanned_id.Text = id;
                                 firstName_text.Text = reader["FirstName"].ToString();
                                 lastName_text.Text = reader["LastName"].ToString();
@@ -104,6 +116,9 @@ namespace Project_001
                                 {
                                     pictureBox1.Image = null; // Clear the picture box if no photo is found
                                 }
+
+                                // Record attendance
+                                RecordAttendance(id, reader["FirstName"].ToString(), reader["LastName"].ToString());
                             }
                             else
                             {
@@ -120,6 +135,53 @@ namespace Project_001
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void RecordAttendance(string id, string firstName, string lastName)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Check if the user has already scanned today
+                    string checkQuery = "SELECT COUNT(*) FROM attendance_tb WHERE ID = @ID AND ScanDate = CURDATE()";
+
+                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@ID", id);
+
+                        int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                        if (count == 0)
+                        {
+                            // Insert attendance record
+                            string insertQuery = "INSERT INTO attendance_tb (ID, FirstName, LastName, ScanDate, ScanTime, AlreadyScanned) " +
+                                                 "VALUES (@ID, @FirstName, @LastName, CURDATE(), CURTIME(), TRUE)";
+
+                            using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                            {
+                                insertCmd.Parameters.AddWithValue("@ID", id);
+                                insertCmd.Parameters.AddWithValue("@FirstName", firstName);
+                                insertCmd.Parameters.AddWithValue("@LastName", lastName);
+
+                                insertCmd.ExecuteNonQuery();
+
+                                MessageBox.Show("Attendance recorded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("This user has already scanned today.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while recording attendance: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void ClearTextBoxes()
         {
             scanned_id.Text = string.Empty;
@@ -134,6 +196,17 @@ namespace Project_001
         private void MainScreenPage_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Set the flag to indicate we're navigating to another form
+            isNavigatingToAnotherForm = true;
+
+            // Close the current form and open AttendanceRecordForm
+            this.Close();
+            ViewAttedanceRecord attendanceForm = new ViewAttedanceRecord();
+            attendanceForm.Show();
         }
     }
 }

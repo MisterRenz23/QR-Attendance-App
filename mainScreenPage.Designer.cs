@@ -40,6 +40,7 @@
             label5 = new Label();
             pictureBox1 = new PictureBox();
             scanned_id = new TextBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -150,12 +151,23 @@
             scanned_id.Size = new Size(175, 23);
             scanned_id.TabIndex = 20;
             // 
+            // button1
+            // 
+            button1.Location = new Point(393, 94);
+            button1.Name = "button1";
+            button1.Size = new Size(146, 34);
+            button1.TabIndex = 21;
+            button1.Text = "View Attendance Record";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // mainScreenPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 26, 51);
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(scanned_id);
             Controls.Add(pictureBox1);
             Controls.Add(birthday_text);
@@ -190,5 +202,6 @@
         private Label label5;
         private PictureBox pictureBox1;
         private TextBox scanned_id;
+        private Button button1;
     }
 }
