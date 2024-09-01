@@ -64,6 +64,7 @@
             firstName_text.Name = "firstName_text";
             firstName_text.Size = new Size(175, 23);
             firstName_text.TabIndex = 7;
+            firstName_text.TextChanged += firstName_text_TextChanged;
             // 
             // id_text
             // 

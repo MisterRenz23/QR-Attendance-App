@@ -1,6 +1,6 @@
 ﻿namespace Project_001
 {
-    partial class ViewAttedanceRecord
+    partial class ViewAttendanceRecord
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dataGridViewScannedUsers = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewScannedUsers).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewScannedUsers
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(101, 154);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(587, 227);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridViewScannedUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewScannedUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewScannedUsers.Location = new Point(77, 123);
+            dataGridViewScannedUsers.Name = "dataGridViewScannedUsers";
+            dataGridViewScannedUsers.Size = new Size(648, 289);
+            dataGridViewScannedUsers.TabIndex = 0;
             // 
-            // ViewAttedanceRecord
+            // ViewAttendanceRecord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
-            Name = "ViewAttedanceRecord";
-            Text = "ViewAttedanceRecord";
-            Load += ViewAttedanceRecord_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Controls.Add(dataGridViewScannedUsers);
+            Name = "ViewAttendanceRecord";
+            Text = "ViewAttendanceRecord";
+            ((System.ComponentModel.ISupportInitialize)dataGridViewScannedUsers).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewScannedUsers;
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 using System.Timers;
 using Project_001.Action;
 
@@ -17,7 +17,7 @@ namespace Project_001
     {
 
         // Define the connection string
-        private string connectionString = @"server=localhost;database=user_infotb;userid=root;password=;";
+        private string connectionString = "Data Source=attendance.db;Version=3;";
         private System.Windows.Forms.Timer inputTimer;
         private bool inputInProgress = false;
         private bool isNavigatingToAnotherForm = false;
@@ -82,16 +82,16 @@ namespace Project_001
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
                     string query = "SELECT FirstName, LastName, Birthday, Gender, Photo FROM registration_tb WHERE ID = @ID";
 
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ID", id);
 
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
@@ -140,14 +140,14 @@ namespace Project_001
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
 
                     // Check if the user has already scanned today
-                    string checkQuery = "SELECT COUNT(*) FROM attendance_tb WHERE ID = @ID AND ScanDate = CURDATE()";
+                    string checkQuery = "SELECT COUNT(*) FROM attendance_tb WHERE ID = @ID AND ScanDate = date('now')";
 
-                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                    using (SQLiteCommand checkCmd = new SQLiteCommand(checkQuery, conn))
                     {
                         checkCmd.Parameters.AddWithValue("@ID", id);
 
@@ -157,9 +157,9 @@ namespace Project_001
                         {
                             // Insert attendance record
                             string insertQuery = "INSERT INTO attendance_tb (ID, FirstName, LastName, ScanDate, ScanTime, AlreadyScanned) " +
-                                                 "VALUES (@ID, @FirstName, @LastName, CURDATE(), CURTIME(), TRUE)";
+                                                 "VALUES (@ID, @FirstName, @LastName, date('now'), time('now'), TRUE)";
 
-                            using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                            using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
                             {
                                 insertCmd.Parameters.AddWithValue("@ID", id);
                                 insertCmd.Parameters.AddWithValue("@FirstName", firstName);
@@ -205,8 +205,8 @@ namespace Project_001
 
             // Close the current form and open AttendanceRecordForm
             this.Close();
-            ViewAttedanceRecord attendanceForm = new ViewAttedanceRecord();
-            attendanceForm.Show();
+            ViewAttendanceRecord scannedUsersForm = new ViewAttendanceRecord();
+            scannedUsersForm.Show();
         }
     }
 }
