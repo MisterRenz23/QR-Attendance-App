@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            Button1 = new Button();
             firstName_text = new TextBox();
             id_text = new TextBox();
             label3 = new Label();
@@ -41,22 +41,22 @@
             radioButton1 = new RadioButton();
             radioButton2 = new RadioButton();
             pictureBox1 = new PictureBox();
-            button2 = new Button();
-            button3 = new Button();
+            Button2 = new Button();
+            Button3 = new Button();
             pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // Button1
             // 
-            button1.Location = new Point(115, 295);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 33);
-            button1.TabIndex = 9;
-            button1.Text = "Add Picture";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            Button1.Location = new Point(115, 295);
+            Button1.Name = "Button1";
+            Button1.Size = new Size(112, 33);
+            Button1.TabIndex = 9;
+            Button1.Text = "Add Picture";
+            Button1.UseVisualStyleBackColor = true;
+            Button1.Click += Button1_Click;
             // 
             // firstName_text
             // 
@@ -64,6 +64,7 @@
             firstName_text.Name = "firstName_text";
             firstName_text.Size = new Size(175, 23);
             firstName_text.TabIndex = 7;
+            firstName_text.TextChanged += firstName_text_TextChanged;
             // 
             // id_text
             // 
@@ -130,7 +131,7 @@
             birthdayPicker.Name = "birthdayPicker";
             birthdayPicker.Size = new Size(175, 23);
             birthdayPicker.TabIndex = 10;
-            birthdayPicker.ValueChanged += dateTimePicker1_ValueChanged;
+            birthdayPicker.ValueChanged += DateTimePicker1_ValueChanged;
             // 
             // label4
             // 
@@ -142,7 +143,7 @@
             label4.Size = new Size(80, 28);
             label4.TabIndex = 11;
             label4.Text = "Gender:";
-            label4.Click += label4_Click;
+            label4.Click += Label4_Click;
             // 
             // radioButton1
             // 
@@ -155,7 +156,7 @@
             radioButton1.TabStop = true;
             radioButton1.Text = "Male";
             radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
+            radioButton1.CheckedChanged += RadioButton1_CheckedChanged;
             // 
             // radioButton2
             // 
@@ -168,7 +169,7 @@
             radioButton2.TabStop = true;
             radioButton2.Text = "Female";
             radioButton2.UseVisualStyleBackColor = true;
-            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
+            radioButton2.CheckedChanged += RadioButton2_CheckedChanged;
             // 
             // pictureBox1
             // 
@@ -180,24 +181,25 @@
             pictureBox1.TabIndex = 13;
             pictureBox1.TabStop = false;
             // 
-            // button2
+            // Button2
             // 
-            button2.Location = new Point(348, 295);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 33);
-            button2.TabIndex = 14;
-            button2.Text = "SAVE";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            Button2.Location = new Point(348, 295);
+            Button2.Name = "Button2";
+            Button2.Size = new Size(112, 33);
+            Button2.TabIndex = 14;
+            Button2.Text = "SAVE";
+            Button2.UseVisualStyleBackColor = true;
+            Button2.Click += Button2_Click;
             // 
-            // button3
+            // Button3
             // 
-            button3.Location = new Point(510, 295);
-            button3.Name = "button3";
-            button3.Size = new Size(112, 33);
-            button3.TabIndex = 15;
-            button3.Text = "DELETE";
-            button3.UseVisualStyleBackColor = true;
+            Button3.Location = new Point(510, 295);
+            Button3.Name = "Button3";
+            Button3.Size = new Size(112, 33);
+            Button3.TabIndex = 15;
+            Button3.Text = "DELETE";
+            Button3.UseVisualStyleBackColor = true;
+            Button3.Click += Button3_Click;
             // 
             // pictureBox2
             // 
@@ -216,14 +218,14 @@
             BackColor = Color.FromArgb(0, 26, 51);
             ClientSize = new Size(1064, 565);
             Controls.Add(pictureBox2);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(Button3);
+            Controls.Add(Button2);
             Controls.Add(pictureBox1);
             Controls.Add(radioButton2);
             Controls.Add(radioButton1);
             Controls.Add(label4);
             Controls.Add(birthdayPicker);
-            Controls.Add(button1);
+            Controls.Add(Button1);
             Controls.Add(firstName_text);
             Controls.Add(lastName_text);
             Controls.Add(id_text);
@@ -241,7 +243,7 @@
 
         #endregion
 
-        private Button button1;
+        private Button Button1;
         private TextBox firstName_text;
         private TextBox id_text;
         private Label label3;
@@ -254,8 +256,8 @@
         private RadioButton radioButton1;
         private RadioButton radioButton2;
         private PictureBox pictureBox1;
-        private Button button2;
-        private Button button3;
+        private Button Button2;
+        private Button Button3;
         private PictureBox pictureBox2;
     }
 }

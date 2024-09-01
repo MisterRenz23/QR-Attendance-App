@@ -1,15 +1,16 @@
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 using System.Data;
 
 namespace Project_001
 {
     public partial class LoginForm : Form
     {
-        private MySqlConnection con = new MySqlConnection();
+        // Use a shared SQLite connection
+        private SQLiteConnection con = new SQLiteConnection("Data Source=attendance.db;Version=3;");
         public LoginForm()
         {
             InitializeComponent();
-            con.ConnectionString = @"server=localhost;database=user_infotb;userid=root;password=;";
+            con.DefaultTimeout = 5000; // 5000 ms = 5 seconds
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -42,26 +43,34 @@ namespace Project_001
                 return;
             }
 
-            MySqlCommand cmd;
-            MySqlDataReader rd;
+            SQLiteCommand cmd;
+            SQLiteDataReader rd;
             try
             {
+                // Open the connection
                 con.Open();
-                cmd = new MySqlCommand();
-                cmd.Connection = con;
-                cmd.CommandText = "SELECT * FROM login_tb WHERE Username= @username AND Password = @password";
-                cmd.Parameters.AddWithValue("@username", user_text.Text);
-                cmd.Parameters.AddWithValue("@password", password_text.Text);
-                rd = cmd.ExecuteReader();
-                if (rd.Read())
+
+                // Use a `using` block to ensure proper disposal
+                using (cmd = new SQLiteCommand())
                 {
-                    this.Hide();
-                    Action.actionPage mf = new Action.actionPage();
-                    mf.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Wrong Username or Password. Please try again.");
+                    cmd.Connection = con;
+                    cmd.CommandText = "SELECT * FROM login_tb WHERE Username= @username AND Password = @password";
+                    cmd.Parameters.AddWithValue("@username", user_text.Text);
+                    cmd.Parameters.AddWithValue("@password", password_text.Text);
+
+                    using (rd = cmd.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            this.Hide();
+                            Action.actionPage mf = new Action.actionPage();
+                            mf.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Wrong Username or Password. Please try again.");
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -70,7 +79,8 @@ namespace Project_001
             }
             finally
             {
-                if (con != null)
+                // Ensure the connection is closed
+                if (con.State == ConnectionState.Open)
                 {
                     con.Close();
                 }
