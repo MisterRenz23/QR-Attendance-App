@@ -85,7 +85,7 @@ namespace Project_001
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT FirstName, LastName, Birthday, Gender, Photo FROM registration_tb WHERE ID = @ID";
+                    string query = "SELECT FirstName, LastName, Birthday, Gender, PhotoPath FROM registration_tb WHERE ID = @ID";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -103,14 +103,11 @@ namespace Project_001
                                 birthday_text.Text = Convert.ToDateTime(reader["Birthday"]).ToString("yyyy-MM-dd");
                                 gender_text.Text = reader["Gender"].ToString();
 
-                                // Retrieve and display the photo
-                                if (reader["Photo"] != DBNull.Value)
+                                // Retrieve and display the photo from PhotoPath
+                                string photoPath = reader["PhotoPath"].ToString();
+                                if (!string.IsNullOrEmpty(photoPath) && File.Exists(photoPath))
                                 {
-                                    byte[] photoBytes = (byte[])reader["Photo"];
-                                    using (var ms = new System.IO.MemoryStream(photoBytes))
-                                    {
-                                        pictureBox1.Image = Image.FromStream(ms);
-                                    }
+                                    pictureBox1.Image = Image.FromFile(photoPath);
                                 }
                                 else
                                 {
@@ -207,6 +204,11 @@ namespace Project_001
             this.Close();
             ViewAttendanceRecord scannedUsersForm = new ViewAttendanceRecord();
             scannedUsersForm.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

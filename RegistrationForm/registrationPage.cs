@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Project_001
 
@@ -19,6 +20,7 @@ namespace Project_001
         // Use SQLite connection
         private SQLiteConnection con = new SQLiteConnection("Data Source=attendance.db;Version=3;");
         private string Gender;
+        private string uniqueId; // Store the unique ID generated on form load
 
         public registrationPage()
         {
@@ -29,11 +31,13 @@ namespace Project_001
             id_text.TabStop = false; // Skip in tab order
 
             // Generate and display the unique ID when the form loads
-            id_text.Text = GenerateUniqueID();
+            uniqueId = GenerateUniqueID();
+            id_text.Text = uniqueId;
 
             // Subscribe to the FormClosing event
             this.FormClosing += RegistrationPage_FormClosing;
         }
+
 
         private string GenerateUniqueID()
         {
@@ -43,10 +47,10 @@ namespace Project_001
 
             while (!isUnique)
             {
-                // Generate ID in the format "year-6 random digits", e.g., "24-123456"
+                // Generate ID in the format "10-(year)-(random 5 digits)", e.g., "10-24-12345"
                 string yearPart = DateTime.Now.ToString("yy"); // Last two digits of the current year
-                string randomPart = random.Next(100000, 999999).ToString("D6"); // 6-digit random number
-                id = $"{yearPart}-{randomPart}";
+                string randomPart = random.Next(10000, 99999).ToString("D5"); // 5-digit random number
+                id = $"10-{yearPart}-{randomPart}";
 
                 try
                 {
@@ -72,7 +76,6 @@ namespace Project_001
 
             return id; // Ensure id is returned after being set
         }
-
 
         private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
@@ -111,12 +114,12 @@ namespace Project_001
                 pictureBox1.Image = Properties.Resources.placeholder; // Replace 'placeholder' with the name of your default image resource
             }
 
-            // Generate a new ID and set it to the ID field
-            id_text.Text = GenerateUniqueID();
+            // Use the unique ID generated on form load
+            id_text.Text = uniqueId;
 
             // Generate QR code
             QRCodeGenerator QG = new QRCodeGenerator();
-            var MyData = QG.CreateQrCode(id_text.Text, QRCodeGenerator.ECCLevel.H);
+            var MyData = QG.CreateQrCode(uniqueId, QRCodeGenerator.ECCLevel.H);
             var code = new QRCode(MyData);
             pictureBox2.Image = code.GetGraphic(100);
 
@@ -133,7 +136,7 @@ namespace Project_001
                     CommandText = "INSERT INTO registration_tb (ID, FirstName, LastName, Birthday, Gender, PhotoPath) " +
                                   "VALUES (@id, @firstName, @lastName, @birthday, @gender, @photoPath)"
                 };
-                command.Parameters.AddWithValue("@id", id_text.Text);
+                command.Parameters.AddWithValue("@id", uniqueId);
                 command.Parameters.AddWithValue("@firstName", firstName_text.Text);
                 command.Parameters.AddWithValue("@lastName", lastName_text.Text);
                 command.Parameters.AddWithValue("@birthday", birthdayPicker.Text);
@@ -151,7 +154,8 @@ namespace Project_001
                 pictureBox2.Image = null;
 
                 // Generate a new ID for the next entry
-                id_text.Text = GenerateUniqueID();
+                uniqueId = GenerateUniqueID();
+                id_text.Text = uniqueId;
             }
             catch (Exception ex)
             {
@@ -174,16 +178,8 @@ namespace Project_001
                 Directory.CreateDirectory(photosFolder);
             }
 
-            // Retrieve the last and first names, trimming any extra spaces
-            string lastName = lastName_text.Text.Trim();
-            string firstName = firstName_text.Text.Trim();
-
-            // Check if fields are empty and set default values if necessary
-            if (string.IsNullOrEmpty(lastName)) lastName = "Unknown";
-            if (string.IsNullOrEmpty(firstName)) firstName = "Unknown";
-
-            // Set the file name using the helper method to clean up invalid characters
-            string fileName = MakeValidFileName($"{lastName}, {firstName}.jpg");
+            // Create filename in the format "(unique ID)-Last Name, First Name.jpg"
+            string fileName = MakeValidFileName($"{id_text.Text}-{lastName_text.Text.Trim()}, {firstName_text.Text.Trim()}.jpg");
             string fullPath = Path.Combine(photosFolder, fileName);
 
             // Save the image to the Photos folder
@@ -215,16 +211,8 @@ namespace Project_001
                 Directory.CreateDirectory(qrCodesFolder);
             }
 
-            // Retrieve and validate the last and first names
-            string lastName = lastName_text.Text.Trim();
-            string firstName = firstName_text.Text.Trim();
-
-            // Check if fields are empty and set default values if necessary
-            if (string.IsNullOrEmpty(lastName)) lastName = "Unknown";
-            if (string.IsNullOrEmpty(firstName)) firstName = "Unknown";
-
-            // Set the file name using the helper method to clean up invalid characters
-            string fileName = MakeValidFileName($"{lastName}, {firstName}.png");
+            // Create filename in the format "(unique ID)-Last Name, First Name.png"
+            string fileName = MakeValidFileName($"{id_text.Text}-{lastName_text.Text.Trim()}, {firstName_text.Text.Trim()}.png");
             string fullPath = Path.Combine(qrCodesFolder, fileName);
 
             try

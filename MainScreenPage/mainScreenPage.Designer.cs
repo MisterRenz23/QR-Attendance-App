@@ -143,6 +143,7 @@
             pictureBox1.Size = new Size(167, 231);
             pictureBox1.TabIndex = 19;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // scanned_id
             // 
