@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_001.Action;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,10 +17,18 @@ namespace Project_001
 
         private string connectionString = "Data Source=attendance.db;Version=3;";
         private DateTime testDate = DateTime.Now; // Use DateTime.Now or set a specific date for testing
+        private bool isNavigatingToAnotherForm = false;
 
         public ViewAttendanceRecord()
         {
             InitializeComponent();
+
+            //Realtime date and time
+            timer1.Start();
+            label1.Text = DateTime.Now.ToLongDateString();
+            
+
+
             //testDate = new DateTime(2024, 8, 29);
             LoadScannedUsers();
             this.FormClosed += ViewAttendanceRecord_FormClosed;
@@ -71,5 +80,26 @@ namespace Project_001
             }
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Start();
+            label1.Text = DateTime.Now.ToLongDateString();
+        }
+
+        private void ViewAttendanceRecord_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackBtn_Click(object sender, EventArgs e)
+        {
+                // Set the flag to indicate we're navigating to another form
+                isNavigatingToAnotherForm = true;
+
+                // Close the current form and open AttendanceRecordForm
+                this.Close();
+            mainScreenPage mainScreenPage = new mainScreenPage();
+
+        }
     }
 }

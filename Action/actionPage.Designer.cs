@@ -46,9 +46,9 @@ namespace Project_001.Action
             clockLabel.BackColor = Color.Transparent;
             clockLabel.Font = new Font("Public Sans", 39.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             clockLabel.ForeColor = Color.WhiteSmoke;
-            clockLabel.Location = new Point(469, 198);
+            clockLabel.Location = new Point(250, 248);
             clockLabel.Name = "clockLabel";
-            clockLabel.Size = new Size(449, 86);
+            clockLabel.Size = new Size(700, 86);
             clockLabel.TabIndex = 0;
             clockLabel.Text = "00 : 00 : 00 AM";
             clockLabel.TextAlign = ContentAlignment.TopCenter;
@@ -75,22 +75,21 @@ namespace Project_001.Action
             dateLabel.BackColor = Color.Transparent;
             dateLabel.Font = new Font("Public Sans", 20.2499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dateLabel.ForeColor = Color.WhiteSmoke;
-            dateLabel.Location = new Point(342, 155);
+            dateLabel.Location = new Point(250, 202);
             dateLabel.Name = "dateLabel";
-            dateLabel.Size = new Size(700, 43);
+            dateLabel.Size = new Size(700, 45);
             dateLabel.TabIndex = 3;
             dateLabel.Text = "Date";
             dateLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // rosaryMonth
             // 
-            rosaryMonth.AutoSize = true;
             rosaryMonth.BackColor = Color.Transparent;
             rosaryMonth.Font = new Font("Public Sans", 39.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             rosaryMonth.ForeColor = Color.WhiteSmoke;
-            rosaryMonth.Location = new Point(460, 81);
+            rosaryMonth.Location = new Point(250, 128);
             rosaryMonth.Name = "rosaryMonth";
-            rosaryMonth.Size = new Size(469, 74);
+            rosaryMonth.Size = new Size(700, 74);
             rosaryMonth.TabIndex = 4;
             rosaryMonth.Text = "ROSARY MONTH";
             rosaryMonth.TextAlign = ContentAlignment.TopCenter;
@@ -106,7 +105,7 @@ namespace Project_001.Action
             registerNewBtn.FlatStyle = FlatStyle.Flat;
             registerNewBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             registerNewBtn.ForeColor = Color.WhiteSmoke;
-            registerNewBtn.Location = new Point(601, 500);
+            registerNewBtn.Location = new Point(492, 496);
             registerNewBtn.Name = "registerNewBtn";
             registerNewBtn.Size = new Size(209, 35);
             registerNewBtn.TabIndex = 8;
@@ -127,7 +126,7 @@ namespace Project_001.Action
             checkAttendanceBtn.FlatStyle = FlatStyle.Flat;
             checkAttendanceBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             checkAttendanceBtn.ForeColor = Color.WhiteSmoke;
-            checkAttendanceBtn.Location = new Point(601, 438);
+            checkAttendanceBtn.Location = new Point(492, 420);
             checkAttendanceBtn.Name = "checkAttendanceBtn";
             checkAttendanceBtn.Size = new Size(209, 56);
             checkAttendanceBtn.TabIndex = 9;
@@ -143,7 +142,7 @@ namespace Project_001.Action
             BackColor = Color.FromArgb(0, 26, 51);
             BackgroundImage = Properties.Resources.BG;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1344, 711);
+            ClientSize = new Size(1184, 711);
             Controls.Add(checkAttendanceBtn);
             Controls.Add(registerNewBtn);
             Controls.Add(rosaryMonth);
@@ -151,6 +150,8 @@ namespace Project_001.Action
             Controls.Add(digitalDate);
             Controls.Add(clockLabel);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "actionPage";
             Text = "Action Page";
             TransparencyKey = Color.Transparent;

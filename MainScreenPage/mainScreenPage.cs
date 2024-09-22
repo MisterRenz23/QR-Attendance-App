@@ -189,13 +189,22 @@ namespace Project_001
 
         }
 
-
         private void MainScreenPage_Load(object sender, EventArgs e)
         {
-
+            timer1.Start();
+            label6.Text = DateTime.Now.ToLongTimeString();
+            label7.Text = DateTime.Now.ToLongDateString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label6.Text = DateTime.Now.ToLongTimeString();
+            timer1.Start();
+        }
+
+
+
+        private void button2_Click_1(object sender, EventArgs e)
         {
             // Set the flag to indicate we're navigating to another form
             isNavigatingToAnotherForm = true;
@@ -206,9 +215,11 @@ namespace Project_001
             scannedUsersForm.Show();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void BackBtn_Click(object sender, EventArgs e)
         {
-
+            var newForm = new actionPage();
+            newForm.Show();
+            this.Hide();
         }
     }
 }
