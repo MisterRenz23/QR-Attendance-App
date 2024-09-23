@@ -15,12 +15,15 @@ using System.Xml;
 namespace Project_001
 
 {
+    
+
     public partial class registrationPage : Form
     {
         // Use SQLite connection
         private SQLiteConnection con = new SQLiteConnection("Data Source=attendance.db;Version=3;");
         private string Gender;
         private string uniqueId; // Store the unique ID generated on form load
+        private bool isNavigatingToAnotherForm = false;
 
         public registrationPage()
         {
@@ -29,6 +32,11 @@ namespace Project_001
             id_text.ReadOnly = true;
             id_text.BackColor = SystemColors.Control; // Greyed out look
             id_text.TabStop = false; // Skip in tab order
+
+            //Realtime date and time
+            timer1.Start();
+            label6.Text = DateTime.Now.ToLongTimeString();
+            label7.Text = DateTime.Now.ToLongDateString();
 
             // Generate and display the unique ID when the form loads
             uniqueId = GenerateUniqueID();
@@ -260,6 +268,28 @@ namespace Project_001
         private void firstName_text_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Start();
+            label6.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void registrationPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackBtn_Click(object sender, EventArgs e)
+        {
+                        // Set the flag to indicate we're navigating to another form
+            isNavigatingToAnotherForm = true;
+
+            // Close the current form and open AttendanceRecordForm
+            this.Close();
+            actionPage actionPage = new actionPage();
+            
         }
 
         private void registrationPage_Load(object sender, EventArgs e)

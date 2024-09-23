@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -117,4 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAARBJREFUOE9t
+        ki0OwkAQhVtRU4lC0huguQAIEnwVSS8AGtsjoJpgMBgMF+EM3KS8r5ktk2XEl+2+92Z/ZltsT/uQcRwX
+        4sIY+RCKKijFQXwYowyEogpqcRO9jXWU+xNA4Y24C47OuIly84cClWDHpRhEa3prc3T8ai7WhKNdBcd7
+        iKcgPDWK0ebo+OTI95gYb0GDGjHtkFa3BdKJ8MmRHzA47llwt5UvysG3HPkqiTxNJzjaOi+yzNp8ciVa
+        HuCn6L3mPHpz8VoeoLjzmvPYMS6Wwd3pJG/MNXaCrjIyR8f/PZUrppvcKRXRGHZjTIvgL6NiVuZffomj
+        mJ6L0ebo+PPf5ovpJk1pkuZBN99eY198Ac9z8NDikwuEAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="Number.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
