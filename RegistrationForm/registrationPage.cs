@@ -42,8 +42,7 @@ namespace Project_001
             uniqueId = GenerateUniqueID();
             id_text.Text = uniqueId;
 
-            // Subscribe to the FormClosing event
-            this.FormClosing += RegistrationPage_FormClosing;
+    
         }
 
 
@@ -283,18 +282,11 @@ namespace Project_001
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-                        // Set the flag to indicate we're navigating to another form
-            isNavigatingToAnotherForm = true;
-
-            // Close the current form and open AttendanceRecordForm
-            this.Close();
-            actionPage actionPage = new actionPage();
-            
-        }
-
-        private void registrationPage_Load(object sender, EventArgs e)
-        {
+            var newForm = new actionPage();
+            newForm.Show();
+            this.Hide();
 
         }
+
     }
 }

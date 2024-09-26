@@ -27,7 +27,7 @@ namespace Project_001
             //Realtime date and time
             timer1.Start();
             label1.Text = DateTime.Now.ToLongDateString();
-            
+
 
 
             //testDate = new DateTime(2024, 8, 29);
@@ -37,9 +37,7 @@ namespace Project_001
 
         private void ViewAttendanceRecord_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Open the mainScreenPage form when this form is closed
-            mainScreenPage mainForm = new mainScreenPage();
-            mainForm.Show();
+   
         }
 
         private void LoadScannedUsers()
@@ -98,10 +96,6 @@ namespace Project_001
 
         }
 
-        private void ViewAttendanceRecord_Load(object sender, EventArgs e)
-        {
-
-        }
 
         // New method to export to Excel
         private void ExportToExcel()
@@ -218,12 +212,21 @@ namespace Project_001
         }
         private void BackBtn_Click(object sender, EventArgs e)
         {
-                // Set the flag to indicate we're navigating to another form
-                isNavigatingToAnotherForm = true;
+            // Set the flag to indicate we're navigating to another form
+            isNavigatingToAnotherForm = true;
 
-                // Close the current form and open AttendanceRecordForm
-                this.Close();
+            // Close the current form and open AttendanceRecordForm
+            this.Close();
             mainScreenPage mainScreenPage = new mainScreenPage();
+        }
+
+        private void exportBtn_Click(object sender, EventArgs e)
+        {
+            ExportToExcel();
+        }
+
+        private void dataGridViewScannedUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

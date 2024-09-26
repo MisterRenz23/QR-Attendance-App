@@ -54,6 +54,7 @@
             Number = new DataGridViewTextBoxColumn();
             Date = new DataGridViewTextBoxColumn();
             BackBtn = new Action.CustomButton();
+            statusLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -164,6 +165,7 @@
             pictureBox1.Location = new Point(102, 353);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(211, 211);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 19;
             pictureBox1.TabStop = false;
             // 
@@ -212,8 +214,9 @@
             label8.Name = "label8";
             label8.Size = new Size(700, 67);
             label8.TabIndex = 24;
-            label8.Text = "ROSARY MONTH";
+            label8.Text = "ROSARY MONTHs";
             label8.TextAlign = ContentAlignment.TopCenter;
+            label8.Click += label8_Click;
             // 
             // button2
             // 
@@ -259,6 +262,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(278, 104);
             dataGridView1.TabIndex = 26;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // Number
             // 
@@ -309,6 +313,17 @@
             BackBtn.UseVisualStyleBackColor = false;
             BackBtn.Click += BackBtn_Click;
             // 
+            // statusLabel
+            // 
+            statusLabel.BackColor = Color.Transparent;
+            statusLabel.Location = new Point(102, 282);
+            statusLabel.Name = "statusLabel";
+            statusLabel.Size = new Size(612, 38);
+            statusLabel.TabIndex = 28;
+            statusLabel.TextAlign = ContentAlignment.MiddleCenter;
+            statusLabel.Visible = false;
+            statusLabel.Click += label9_Click;
+            // 
             // mainScreenPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -317,6 +332,7 @@
             BackgroundImage = Properties.Resources.BG;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1184, 711);
+            Controls.Add(statusLabel);
             Controls.Add(BackBtn);
             Controls.Add(dataGridView1);
             Controls.Add(button2);
@@ -371,5 +387,6 @@
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn Time;
         private Action.CustomButton BackBtn;
+        private Label statusLabel;
     }
 }
