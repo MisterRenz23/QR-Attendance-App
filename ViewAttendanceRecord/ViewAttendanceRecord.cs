@@ -212,12 +212,9 @@ namespace Project_001
         }
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            // Set the flag to indicate we're navigating to another form
-            isNavigatingToAnotherForm = true;
-
-            // Close the current form and open AttendanceRecordForm
-            this.Close();
-            mainScreenPage mainScreenPage = new mainScreenPage();
+            var newForm = new mainScreenPage();
+            newForm.Show();
+            this.Hide();
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
