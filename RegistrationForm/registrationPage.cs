@@ -15,12 +15,15 @@ using System.Xml;
 namespace Project_001
 
 {
+    
+
     public partial class registrationPage : Form
     {
         // Use SQLite connection
         private SQLiteConnection con = new SQLiteConnection("Data Source=attendance.db;Version=3;");
         private string Gender;
         private string uniqueId; // Store the unique ID generated on form load
+        private bool isNavigatingToAnotherForm = false;
 
         public registrationPage()
         {
@@ -30,12 +33,16 @@ namespace Project_001
             id_text.BackColor = SystemColors.Control; // Greyed out look
             id_text.TabStop = false; // Skip in tab order
 
+            //Realtime date and time
+            timer1.Start();
+            label6.Text = DateTime.Now.ToLongTimeString();
+            label7.Text = DateTime.Now.ToLongDateString();
+
             // Generate and display the unique ID when the form loads
             uniqueId = GenerateUniqueID();
             id_text.Text = uniqueId;
 
-            // Subscribe to the FormClosing event
-            this.FormClosing += RegistrationPage_FormClosing;
+    
         }
 
 
@@ -261,5 +268,25 @@ namespace Project_001
         {
 
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Start();
+            label6.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void registrationPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackBtn_Click(object sender, EventArgs e)
+        {
+            var newForm = new actionPage();
+            newForm.Show();
+            this.Hide();
+
+        }
+
     }
 }
