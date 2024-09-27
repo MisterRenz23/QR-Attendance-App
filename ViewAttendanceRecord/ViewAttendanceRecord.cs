@@ -81,7 +81,7 @@ namespace Project_001
         private void ViewAttendanceRecord_Load(object sender, EventArgs e)
         {
 
-    }
+        }
 
         // New method to export to Excel
         private void ExportToExcel()
@@ -143,7 +143,7 @@ namespace Project_001
                                 MessageBox.Show("No data available to export.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
-}
+                    }
                 }
             }
             catch (Exception ex)
