@@ -21,6 +21,7 @@ namespace Project_001
         private System.Windows.Forms.Timer inputTimer;
         private bool inputInProgress = false;
         private bool isNavigatingToAnotherForm = false;
+        private bool blockMessageShown = false;
 
         public mainScreenPage()
         {
@@ -85,7 +86,12 @@ namespace Project_001
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT FirstName, LastName, Birthday, Gender, PhotoPath FROM registration_tb WHERE ID = @ID";
+
+                    // DEBUG: Log the scanned ID to verify it's being passed correctly
+                    Console.WriteLine("Scanned ID: " + id);
+
+                    // Use exact match for ID
+                    string query = "SELECT FirstName, LastName, Birthday, Gender, PhotoPath, StartDate, IsBlocked FROM registration_tb WHERE ID = @ID";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
@@ -95,6 +101,18 @@ namespace Project_001
                         {
                             if (reader.Read())
                             {
+                                // Check if the user is blocked
+                                if (Convert.ToBoolean(reader["IsBlocked"]))
+                                {
+                                    MessageBox.Show("This account is blocked due to excessive absences.", "Account Blocked", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    // Reset necessary flags after a blocked scan
+                                    blockMessageShown = false;
+                                    inputInProgress = false;
+                                    id_text.Text = string.Empty; // Clear the scanned input
+                                    return;
+                                }
+
                                 // Populate the textboxes with user details
                                 id_text.Text = string.Empty;
                                 scanned_id.Text = id;
@@ -114,6 +132,19 @@ namespace Project_001
                                     pictureBox1.Image = null; // Clear the picture box if no photo is found
                                 }
 
+                                DateTime? startDate = reader["StartDate"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["StartDate"]) : null;
+
+                                if (startDate == null)
+                                {
+                                    // If this is the student's first scan, set the start date to today
+                                    SetStartDate(id);
+                                }
+                                else
+                                {
+                                    // Check for absences and block the account if necessary
+                                    CheckAbsencesAndBlockAccount(id, startDate.Value);
+                                }
+
                                 // Record attendance
                                 RecordAttendance(id, reader["FirstName"].ToString(), reader["LastName"].ToString());
                             }
@@ -123,6 +154,11 @@ namespace Project_001
                                 ClearTextBoxes();
                                 MessageBox.Show("User not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
+
+                            // Ensure that flags are reset after each scan
+                            blockMessageShown = false;
+                            inputInProgress = false;
+                            id_text.Text = string.Empty; // Clear the scanned input after processing
                         }
                     }
                 }
@@ -133,6 +169,89 @@ namespace Project_001
             }
         }
 
+
+        private void SetStartDate(string id)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string updateQuery = "UPDATE registration_tb SET StartDate = date('now') WHERE ID = @ID";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while setting start date: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CheckAbsencesAndBlockAccount(string id, DateTime startDate)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Query to get all attendance records for this student
+                    string attendanceQuery = "SELECT ScanDate FROM attendance_tb WHERE ID = @ID";
+                    List<DateTime> scanDates = new List<DateTime>();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(attendanceQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", id);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                scanDates.Add(Convert.ToDateTime(reader["ScanDate"]));
+                            }
+                        }
+                    }
+
+                    // Calculate absences from start date until today
+                    DateTime currentDate = DateTime.Now;
+                    int absences = 0;
+
+                    for (DateTime date = startDate; date <= currentDate; date = date.AddDays(1))
+                    {
+                        // Check if the student didn't scan on this day (excluding weekends if needed)
+                        if (!scanDates.Contains(date))
+                        {
+                            absences++;
+                        }
+                    }
+
+                    if (absences >= 3)
+                    {
+                        // Block the account if 3 or more absences
+                        string blockQuery = "UPDATE registration_tb SET IsBlocked = TRUE WHERE ID = @ID";
+
+                        using (SQLiteCommand cmd = new SQLiteCommand(blockQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@ID", id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show("Account has been blocked due to 3 or more absences.", "Account Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while checking absences: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void RecordAttendance(string id, string firstName, string lastName)
         {
             try
@@ -140,6 +259,40 @@ namespace Project_001
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
+
+                    // DEBUG: Log scanned ID to check if it's passed correctly
+                    Console.WriteLine("Scanned ID: " + id);
+
+                    // Check if the user exists in the registration_tb and if the user is blocked
+                    string checkUserQuery = "SELECT IsBlocked FROM registration_tb WHERE ID LIKE @ID";  // Use LIKE to avoid potential format mismatches
+
+                    using (SQLiteCommand checkUserCmd = new SQLiteCommand(checkUserQuery, conn))
+                    {
+                        checkUserCmd.Parameters.AddWithValue("@ID", "%" + id + "%");  // Use wildcard for flexibility in matching
+
+                        object result = checkUserCmd.ExecuteScalar();
+
+                        // If the user is not found, result will be null
+                        if (result == null)
+                        {
+                            MessageBox.Show("User not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return; // Stop further execution, no user found
+                        }
+
+                        // Check if the user is blocked
+                        bool isBlocked = Convert.ToBoolean(result);
+
+                        // If the account is blocked, show message and exit the function
+                        if (isBlocked && !blockMessageShown)
+                        {
+                            MessageBox.Show("Account has been blocked due to 3 or more absences.", "Account Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            blockMessageShown = true; // Set the flag to true so message won't show again
+                            return; // Stop further execution, don't record attendance
+                        }
+                    }
+
+                    // Reset the block message flag after a successful scan
+                    blockMessageShown = false;
 
                     // Check if the user has already scanned today
                     string checkQuery = "SELECT COUNT(*) FROM attendance_tb WHERE ID = @ID AND ScanDate = date('now')";
@@ -152,7 +305,7 @@ namespace Project_001
 
                         if (count == 0)
                         {
-                            // Insert attendance record
+                            // Insert attendance record if not already scanned today
                             string insertQuery = "INSERT INTO attendance_tb (ID, FirstName, LastName, ScanDate, ScanTime, AlreadyScanned) " +
                                                  "VALUES (@ID, @FirstName, @LastName, date('now'), time('now'), TRUE)";
 
@@ -179,6 +332,7 @@ namespace Project_001
                 MessageBox.Show("An error occurred while recording attendance: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ClearTextBoxes()
         {
             scanned_id.Text = string.Empty;

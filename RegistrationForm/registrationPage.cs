@@ -261,5 +261,10 @@ namespace Project_001
         {
 
         }
+
+        private void registrationPage_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
