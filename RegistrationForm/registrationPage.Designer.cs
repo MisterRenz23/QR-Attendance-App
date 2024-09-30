@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(registrationPage));
             Button1 = new Button();
             firstName_text = new TextBox();
             id_text = new TextBox();
@@ -331,6 +332,7 @@
             Controls.Add(IDNumLabl);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "registrationPage";
             Text = "Registration Page";

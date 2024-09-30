@@ -31,6 +31,7 @@ namespace Project_001.Action
         private void InitializeComponent()
         {
             components = new Container();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(actionPage));
             backgroundWorker1 = new BackgroundWorker();
             clockLabel = new Label();
             digitalClock = new System.Windows.Forms.Timer(components);
@@ -151,6 +152,7 @@ namespace Project_001.Action
             Controls.Add(clockLabel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "actionPage";
             Text = "Action Page";

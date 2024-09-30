@@ -16,29 +16,64 @@ namespace Project_001
     {
         // Use a shared SQLite connection
         private SQLiteConnection con = new SQLiteConnection("Data Source=attendance.db;Version=3;");
+        // Variable to store the actual password
+        private string realPassword = string.Empty;
         public LoginForm()
         {
             InitializeComponent();
             con.DefaultTimeout = 5000; // 5000 ms = 5 seconds
+
+            // Ensure the fields are cleared on startup
+            user_text.Text = string.Empty;
+            password_text.Text = string.Empty;
+
+            // Subscribe to the KeyDown event for Enter key detection
+            user_text.KeyDown += new KeyEventHandler(OnEnterKeyPress);
+            password_text.KeyDown += new KeyEventHandler(OnEnterKeyPress);
+
+            // Handle the password masking
+            password_text.TextChanged += Password_text_TextChanged;
+        }
+
+        // Trigger login on Enter key press
+        private void OnEnterKeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Call the login button click event handler
+                button1_Click_1(sender, e);
+            }
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            //con.Open();
-            //if (con.State == ConnectionState.Open)
-            //{
-            //    MessageBox.Show("Connect Successful");
-            //    con.Close();
-            //}
 
+        }
+
+        private void Password_text_TextChanged(object sender, EventArgs e)
+        {
+            // Store the real password input in realPassword
+            if (password_text.Text.Length > realPassword.Length)
+            {
+                realPassword += password_text.Text.Substring(realPassword.Length);
+            }
+            else if (password_text.Text.Length < realPassword.Length)
+            {
+                realPassword = realPassword.Substring(0, password_text.Text.Length);
+            }
+
+            // Replace the RichTextBox text with asterisks
+            int selectionStart = password_text.SelectionStart;
+            password_text.Text = new string('*', realPassword.Length);
+            password_text.SelectionStart = selectionStart;
         }
 
 
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            // Check if the username or password fields are empty
-            if (string.IsNullOrWhiteSpace(user_text.Text) || string.IsNullOrWhiteSpace(password_text.Text))
+            // Check if username or password is empty
+            if (string.IsNullOrWhiteSpace(user_text.Text) || string.IsNullOrWhiteSpace(realPassword))
             {
                 MessageBox.Show("Please enter both Username and Password.");
                 return;
@@ -51,13 +86,12 @@ namespace Project_001
                 // Open the connection
                 con.Open();
 
-                // Use a `using` block to ensure proper disposal
                 using (cmd = new SQLiteCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = "SELECT * FROM login_tb WHERE Username= @username AND Password = @password";
+                    cmd.CommandText = "SELECT * FROM login_tb WHERE Username = @username AND Password = @password";
                     cmd.Parameters.AddWithValue("@username", user_text.Text);
-                    cmd.Parameters.AddWithValue("@password", password_text.Text);
+                    cmd.Parameters.AddWithValue("@password", realPassword); // Use the real password
 
                     using (rd = cmd.ExecuteReader())
                     {
@@ -80,8 +114,8 @@ namespace Project_001
             }
             finally
             {
-                // Ensure the connection is closed
-                if (con.State == ConnectionState.Open)
+                // Close the connection
+                if (con.State == System.Data.ConnectionState.Open)
                 {
                     con.Close();
                 }

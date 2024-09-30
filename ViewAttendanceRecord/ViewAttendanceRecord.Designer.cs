@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewAttendanceRecord));
             dataGridViewScannedUsers = new DataGridView();
             label1 = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -140,6 +141,7 @@
             Controls.Add(label1);
             Controls.Add(dataGridViewScannedUsers);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "ViewAttendanceRecord";
             Text = "ViewAttendanceRecord";

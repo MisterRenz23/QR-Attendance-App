@@ -214,7 +214,7 @@
             label8.Name = "label8";
             label8.Size = new Size(700, 67);
             label8.TabIndex = 24;
-            label8.Text = "ROSARY MONTHs";
+            label8.Text = "ROSARY MONTH";
             label8.TextAlign = ContentAlignment.TopCenter;
             label8.Click += label8_Click;
             // 
@@ -353,6 +353,7 @@
             Controls.Add(label2);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "mainScreenPage";
             Text = "Main Screen";

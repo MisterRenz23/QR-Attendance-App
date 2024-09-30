@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             label1 = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             label3 = new Label();
@@ -45,7 +46,7 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(227, 168);
             label1.Name = "label1";
-            label1.Size = new Size(768, 74);
+            label1.Size = new Size(766, 74);
             label1.TabIndex = 0;
             label1.Text = "Attendance Checker System";
             // 
@@ -128,6 +129,7 @@
             Controls.Add(label2);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "LoginForm";
             Text = "Attendance System";
