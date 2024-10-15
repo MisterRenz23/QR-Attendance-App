@@ -55,6 +55,7 @@
             Date = new DataGridViewTextBoxColumn();
             BackBtn = new Action.CustomButton();
             statusLabel = new Label();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -324,6 +325,11 @@
             statusLabel.Visible = false;
             statusLabel.Click += label9_Click;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
             // mainScreenPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -389,5 +395,6 @@
         private DataGridViewTextBoxColumn Time;
         private Action.CustomButton BackBtn;
         private Label statusLabel;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }

@@ -119,18 +119,11 @@ namespace Project_001
                                     pictureBox1.Image = null; // Clear the picture box if no photo is found
                                 }
 
-                                DateTime? startDate = reader["StartDate"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(reader["StartDate"]) : null;
+                                // Set a fixed start date for counting absences from October 1, 2024
+                                DateTime absenceStartDate = new DateTime(2024, 10, 1);
 
-                                if (startDate == null)
-                                {
-                                    // If this is the student's first scan, set the start date to today
-                                    SetStartDate(id);
-                                }
-                                else
-                                {
-                                    // Display absences, even if blocked
-                                    CheckAbsencesAndBlockAccount(id, startDate.Value);
-                                }
+                                // Check absences from October 1, 2024
+                                CheckAbsencesAndBlockAccount(id, absenceStartDate);
 
                                 // Check if the student is blocked and show the block message AFTER displaying details and absences
                                 if (Convert.ToBoolean(reader["IsBlocked"]))
@@ -166,7 +159,6 @@ namespace Project_001
         }
 
 
-
         private void SetStartDate(string id)
         {
             try
@@ -175,15 +167,15 @@ namespace Project_001
                 {
                     conn.Open();
 
-                    // Get the current date using C#'s DateTime.Now
-                    string currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    // Set the start date to October 1, 2024, regardless of when the student scans
+                    string fixedStartDate = "2024-10-01";
 
                     // Update the StartDate field in the registration table
                     string updateQuery = "UPDATE registration_tb SET StartDate = @StartDate WHERE ID = @ID";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@StartDate", currentDate);
+                        cmd.Parameters.AddWithValue("@StartDate", fixedStartDate);
                         cmd.Parameters.AddWithValue("@ID", id);
                         cmd.ExecuteNonQuery();
                     }
@@ -225,12 +217,12 @@ namespace Project_001
                     // Clear the DataGridView before populating
                     dataGridView1.Rows.Clear();
 
-                    // Calculate absences from the start date until the day before the current scan
+                    // Calculate absences from October 1, 2024 until the day before the current scan
                     DateTime currentDate = DateTime.Now.Date;  // Use the current date without time
                     int absences = 0;
                     int noCount = 1;  // Track the "No." column
 
-                    // Check for absences between each day from the start date up to the day before the current scan
+                    // Check for absences between October 1, 2024, and the day before the current scan
                     for (DateTime date = startDate.Date; date < currentDate; date = date.AddDays(1))
                     {
                         // We are counting all days, including weekends
@@ -269,9 +261,6 @@ namespace Project_001
                 MessageBox.Show("An error occurred while checking absences: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
 
 
         private void RecordAttendance(string id, string firstName, string lastName)
@@ -354,6 +343,74 @@ namespace Project_001
             catch (Exception ex)
             {
                 ShowStatusMessage("An error occurred while recording attendance: " + ex.Message, "#FF0000");  // Red color for error message
+            }
+        }
+
+        private void CheckAbsencesAndUpdateBlockStatus(string studentId, DateTime startDate)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Query to get all attendance records for this student
+                    string attendanceQuery = "SELECT ScanDate FROM attendance_tb WHERE ID = @ID ORDER BY ScanDate";
+                    List<DateTime> scanDates = new List<DateTime>();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(attendanceQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", studentId);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Store only the date part (ignore time)
+                                DateTime scanDate = Convert.ToDateTime(reader["ScanDate"]).Date;
+                                scanDates.Add(scanDate);
+                            }
+                        }
+                    }
+
+                    // Calculate absences from October 1, 2024, until today
+                    DateTime currentDate = DateTime.Now.Date;  // Use the current date without time
+                    int absences = 0;
+
+                    // Check for absences between startDate and the day before the current date
+                    for (DateTime date = startDate.Date; date < currentDate; date = date.AddDays(1))
+                    {
+                        // If the date is not in the scanned dates list, it counts as an absence
+                        if (!scanDates.Contains(date))
+                        {
+                            absences++;
+                        }
+                    }
+
+                    // Block the account if the student has 3 or more absences
+                    string updateQuery;
+                    if (absences >= 3)
+                    {
+                        updateQuery = "UPDATE registration_tb SET IsBlocked = 1 WHERE ID = @ID";
+                    }
+                    else
+                    {
+                        updateQuery = "UPDATE registration_tb SET IsBlocked = 0 WHERE ID = @ID";
+                    }
+
+                    using (SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@ID", studentId);
+                        updateCmd.ExecuteNonQuery();
+                    }
+
+                    // Optionally, log or display the total absences for the student
+                    Debug.WriteLine($"Total absences for user {studentId}: {absences}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while checking absences: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -40,6 +40,7 @@ namespace Project_001.Action
             rosaryMonth = new Label();
             registerNewBtn = new CustomButton();
             checkAttendanceBtn = new CustomButton();
+            AccStatusBtn = new CustomButton();
             SuspendLayout();
             // 
             // clockLabel
@@ -136,6 +137,26 @@ namespace Project_001.Action
             checkAttendanceBtn.UseVisualStyleBackColor = false;
             checkAttendanceBtn.Click += CheckAttendanceBtn_Click;
             // 
+            // AccStatusBtn
+            // 
+            AccStatusBtn.BackColor = Color.Red;
+            AccStatusBtn.BackgroundColor = Color.Red;
+            AccStatusBtn.BorderColor = Color.PaleVioletRed;
+            AccStatusBtn.BorderRadius = 8;
+            AccStatusBtn.BorderSize = 0;
+            AccStatusBtn.FlatAppearance.BorderSize = 0;
+            AccStatusBtn.FlatStyle = FlatStyle.Flat;
+            AccStatusBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AccStatusBtn.ForeColor = Color.WhiteSmoke;
+            AccStatusBtn.Location = new Point(492, 537);
+            AccStatusBtn.Name = "AccStatusBtn";
+            AccStatusBtn.Size = new Size(209, 35);
+            AccStatusBtn.TabIndex = 10;
+            AccStatusBtn.Text = "Account Status";
+            AccStatusBtn.TextColor = Color.WhiteSmoke;
+            AccStatusBtn.UseVisualStyleBackColor = false;
+            AccStatusBtn.Click += AccStatusBtn_Click;
+            // 
             // actionPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -144,6 +165,7 @@ namespace Project_001.Action
             BackgroundImage = Properties.Resources.BG;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1184, 711);
+            Controls.Add(AccStatusBtn);
             Controls.Add(checkAttendanceBtn);
             Controls.Add(registerNewBtn);
             Controls.Add(rosaryMonth);
@@ -172,5 +194,6 @@ namespace Project_001.Action
         private Label rosaryMonth;
         private CustomButton registerNewBtn;
         private CustomButton checkAttendanceBtn;
+        private CustomButton AccStatusBtn;
     }
 }

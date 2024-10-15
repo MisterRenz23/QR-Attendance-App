@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 using ClosedXML.Excel; // Add this import for ClosedXML
 
 namespace Project_001
@@ -28,8 +29,6 @@ namespace Project_001
             timer1.Start();
             label1.Text = DateTime.Now.ToLongDateString();
 
-
-
             //testDate = new DateTime(2024, 8, 29);
             LoadScannedUsers();
             this.FormClosed += ViewAttendanceRecord_FormClosed;
@@ -37,7 +36,7 @@ namespace Project_001
 
         private void ViewAttendanceRecord_FormClosed(object sender, FormClosedEventArgs e)
         {
-   
+
         }
 
         private void LoadScannedUsers()
@@ -94,6 +93,115 @@ namespace Project_001
         private void ViewAttendanceRecord_Load(object sender, EventArgs e)
         {
 
+        }
+
+        // New method to export today's attendance to Excel
+        private void ExportAttendanceForDay(DateTime selectedDate)
+        {
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Excel Workbook|*.xlsx";
+                    sfd.Title = "Save Attendance Record as Excel File";
+                    sfd.FileName = $"AttendanceRecord_{selectedDate:yyyyMMdd}.xlsx";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (XLWorkbook workbook = new XLWorkbook())
+                        {
+                            // Fetch records for the selected date
+                            DataTable dt = FetchAttendanceForDate(selectedDate);
+
+                            if (dt != null && dt.Rows.Count > 0)
+                            {
+                                // Create a new worksheet
+                                var worksheet = workbook.Worksheets.Add("AttendanceRecord");
+
+                                // Manually set the headers
+                                worksheet.Cell(1, 1).Value = "No.";
+                                worksheet.Cell(1, 2).Value = "First Name";
+                                worksheet.Cell(1, 3).Value = "Last Name";
+                                worksheet.Cell(1, 4).Value = "Scan Date";
+                                worksheet.Cell(1, 5).Value = "Scan Time";
+
+                                // Populate the worksheet with data from the DataTable
+                                for (int i = 0; i < dt.Rows.Count; i++)
+                                {
+                                    worksheet.Cell(i + 2, 1).Value = Convert.ToInt32(dt.Rows[i]["Number"]);
+                                    worksheet.Cell(i + 2, 2).Value = dt.Rows[i]["FirstName"].ToString();
+                                    worksheet.Cell(i + 2, 3).Value = dt.Rows[i]["LastName"].ToString();
+                                    worksheet.Cell(i + 2, 4).Value = DateTime.Parse(dt.Rows[i]["ScanDate"].ToString()).ToString("yyyy-MM-dd");
+                                    worksheet.Cell(i + 2, 5).Value = DateTime.Parse(dt.Rows[i]["ScanTime"].ToString()).ToString("HH:mm:ss");
+                                }
+
+                                // Optionally, adjust the column width to fit the content
+                                worksheet.Columns().AdjustToContents();
+
+                                // Apply center alignment to all data cells
+                                var dataRange = worksheet.RangeUsed();
+                                dataRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                                // Bold the header row
+                                worksheet.Row(1).Style.Font.Bold = true;
+
+                                // Save the workbook to the selected file path
+                                workbook.SaveAs(sfd.FileName);
+                                MessageBox.Show("Data successfully exported to Excel!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No data available for the selected date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private DataTable FetchAttendanceForDate(DateTime selectedDate)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = @"
+                    SELECT attendance_tb.ID, attendance_tb.FirstName, attendance_tb.LastName, attendance_tb.ScanDate, attendance_tb.ScanTime 
+                    FROM attendance_tb
+                    WHERE attendance_tb.ScanDate = @ScanDate";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ScanDate", selectedDate.ToString("yyyy-MM-dd"));
+
+                        SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+                        adapter.Fill(dt);
+
+                        dt.Columns.Add("Number", typeof(int)).SetOrdinal(0);
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            dt.Rows[i]["Number"] = i + 1;
+                        }
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return dt;
         }
 
 
@@ -225,6 +333,188 @@ namespace Project_001
         private void dataGridViewScannedUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void customButton1_Click(object sender, EventArgs e)
+        {
+            // Get the selected date from the DateTimePicker
+            DateTime selectedDate = dateTimePicker1.Value.Date;
+
+            // Call the export function with the selected date
+            ExportAttendanceForDay(selectedDate);
+        }
+
+        // Function to export absence summary to Excel
+        private void ExportAbsenceSummaryToExcel(DataTable absenceSummary)
+        {
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Excel Workbook|*.xlsx";
+                    sfd.Title = "Save Absence Summary as Excel File";
+                    sfd.FileName = $"AbsenceSummary_{DateTime.Now:yyyyMMdd}.xlsx";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (XLWorkbook workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add("AbsenceSummary");
+
+                            // Manually set the headers
+                            worksheet.Cell(1, 1).Value = "ID";
+                            worksheet.Cell(1, 2).Value = "First Name";
+                            worksheet.Cell(1, 3).Value = "Last Name";
+                            worksheet.Cell(1, 4).Value = "Total Absences";
+                            worksheet.Cell(1, 5).Value = "Absence Dates";
+
+                            // Populate the worksheet with data from the DataTable
+                            for (int i = 0; i < absenceSummary.Rows.Count; i++)
+                            {
+                                // Ensure that values are converted to the correct types before assigning them to the worksheet cells
+                                worksheet.Cell(i + 2, 1).Value = absenceSummary.Rows[i]["ID"].ToString();  // Convert ID to string
+                                worksheet.Cell(i + 2, 2).Value = absenceSummary.Rows[i]["FirstName"].ToString();  // Convert FirstName to string
+                                worksheet.Cell(i + 2, 3).Value = absenceSummary.Rows[i]["LastName"].ToString();  // Convert LastName to string
+                                worksheet.Cell(i + 2, 4).Value = Convert.ToInt32(absenceSummary.Rows[i]["TotalAbsences"]);  // Convert TotalAbsences to integer
+                                worksheet.Cell(i + 2, 5).Value = absenceSummary.Rows[i]["AbsenceDates"].ToString();  // Convert AbsenceDates to string
+                            }
+
+
+                            // Optionally, adjust the column width to fit the content
+                            worksheet.Columns().AdjustToContents();
+
+                            // Apply center alignment to all data
+                            var dataRange = worksheet.RangeUsed();
+                            dataRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            // Bold the header row
+                            worksheet.Row(1).Style.Font.Bold = true;
+
+                            // Save the workbook to the selected file path
+                            workbook.SaveAs(sfd.FileName);
+                            MessageBox.Show("Absence summary successfully exported to Excel!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting absence summary: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Function to calculate absences for a student
+        private (int, List<DateTime>) CalculateStudentAbsences(string id, DateTime startDate)
+        {
+            int absences = 0;
+            List<DateTime> absenceDates = new List<DateTime>();
+
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Query to get all attendance records for this student
+                    string attendanceQuery = "SELECT ScanDate FROM attendance_tb WHERE ID = @ID ORDER BY ScanDate";
+                    List<DateTime> scanDates = new List<DateTime>();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(attendanceQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", id);
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Store only the date part (ignore time)
+                                DateTime scanDate = Convert.ToDateTime(reader["ScanDate"]).Date;
+                                scanDates.Add(scanDate);
+                            }
+                        }
+                    }
+
+                    // Check for absences between October 1, 2024, and the current date
+                    DateTime currentDate = DateTime.Now.Date;
+
+                    for (DateTime date = startDate.Date; date < currentDate; date = date.AddDays(1))
+                    {
+                        // We are counting all days, including weekends
+
+                        // If the date is not in the scanned dates list, it counts as an absence
+                        if (!scanDates.Contains(date))
+                        {
+                            absences++;
+                            absenceDates.Add(date);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error calculating absences for ID " + id + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return (absences, absenceDates);
+        }
+
+        private void customButton2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Query to get all students from registration_tb
+                    string query = "SELECT ID, FirstName, LastName FROM registration_tb";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            DataTable absenceSummary = new DataTable();
+                            absenceSummary.Columns.Add("ID", typeof(string));
+                            absenceSummary.Columns.Add("FirstName", typeof(string));
+                            absenceSummary.Columns.Add("LastName", typeof(string));
+                            absenceSummary.Columns.Add("TotalAbsences", typeof(int));
+                            absenceSummary.Columns.Add("AbsenceDates", typeof(string)); // This will store the dates as a comma-separated string
+
+                            while (reader.Read())
+                            {
+                                string id = reader["ID"].ToString();
+                                string firstName = reader["FirstName"].ToString();
+                                string lastName = reader["LastName"].ToString();
+
+                                // Set the fixed start date as October 1, 2024
+                                DateTime absenceStartDate = new DateTime(2024, 10, 1);
+
+                                // Call the method to get absences for each student
+                                (int totalAbsences, List<DateTime> absenceDates) = CalculateStudentAbsences(id, absenceStartDate);
+
+                                // Only add students with at least one absence to the summary
+                                if (totalAbsences > 0)
+                                {
+                                    absenceSummary.Rows.Add(id, firstName, lastName, totalAbsences, string.Join(", ", absenceDates.Select(d => d.ToString("yyyy-MM-dd"))));
+                                }
+                            }
+
+                            // Export the summary if there are absences
+                            if (absenceSummary.Rows.Count > 0)
+                            {
+                                ExportAbsenceSummaryToExcel(absenceSummary);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No absence data available to export.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating absence summary: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

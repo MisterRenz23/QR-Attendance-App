@@ -37,6 +37,9 @@
             exportBtn = new Action.CustomButton();
             BackBtn = new Action.CustomButton();
             RosaryMonth = new Label();
+            customButton1 = new Action.CustomButton();
+            dateTimePicker1 = new DateTimePicker();
+            customButton2 = new Action.CustomButton();
             ((System.ComponentModel.ISupportInitialize)dataGridViewScannedUsers).BeginInit();
             SuspendLayout();
             // 
@@ -86,12 +89,12 @@
             exportBtn.FlatStyle = FlatStyle.Flat;
             exportBtn.Font = new Font("Public Sans SemiBold", 10F);
             exportBtn.ForeColor = Color.WhiteSmoke;
-            exportBtn.Location = new Point(863, 527);
+            exportBtn.Location = new Point(227, 564);
             exportBtn.Name = "exportBtn";
             exportBtn.Padding = new Padding(0, 0, 0, 2);
             exportBtn.Size = new Size(110, 40);
             exportBtn.TabIndex = 4;
-            exportBtn.Text = "Export";
+            exportBtn.Text = "Export Month";
             exportBtn.TextColor = Color.WhiteSmoke;
             exportBtn.UseVisualStyleBackColor = false;
             exportBtn.Click += exportBtn_Click;
@@ -128,6 +131,55 @@
             RosaryMonth.Text = "ROSARY MONTH";
             RosaryMonth.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // customButton1
+            // 
+            customButton1.BackColor = Color.Teal;
+            customButton1.BackgroundColor = Color.Teal;
+            customButton1.BorderColor = Color.FromArgb(12, 23, 120);
+            customButton1.BorderRadius = 5;
+            customButton1.BorderSize = 0;
+            customButton1.FlatAppearance.BorderSize = 0;
+            customButton1.FlatStyle = FlatStyle.Flat;
+            customButton1.Font = new Font("Public Sans SemiBold", 10F);
+            customButton1.ForeColor = Color.WhiteSmoke;
+            customButton1.Location = new Point(227, 518);
+            customButton1.Name = "customButton1";
+            customButton1.Padding = new Padding(0, 0, 0, 2);
+            customButton1.Size = new Size(110, 40);
+            customButton1.TabIndex = 8;
+            customButton1.Text = "Export Day";
+            customButton1.TextColor = Color.WhiteSmoke;
+            customButton1.UseVisualStyleBackColor = false;
+            customButton1.Click += customButton1_Click;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(343, 526);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(200, 23);
+            dateTimePicker1.TabIndex = 9;
+            // 
+            // customButton2
+            // 
+            customButton2.BackColor = Color.Teal;
+            customButton2.BackgroundColor = Color.Teal;
+            customButton2.BorderColor = Color.FromArgb(12, 23, 120);
+            customButton2.BorderRadius = 5;
+            customButton2.BorderSize = 0;
+            customButton2.FlatAppearance.BorderSize = 0;
+            customButton2.FlatStyle = FlatStyle.Flat;
+            customButton2.Font = new Font("Public Sans SemiBold", 10F);
+            customButton2.ForeColor = Color.WhiteSmoke;
+            customButton2.Location = new Point(820, 526);
+            customButton2.Name = "customButton2";
+            customButton2.Padding = new Padding(0, 0, 0, 2);
+            customButton2.Size = new Size(153, 40);
+            customButton2.TabIndex = 10;
+            customButton2.Text = "Absence Summary";
+            customButton2.TextColor = Color.WhiteSmoke;
+            customButton2.UseVisualStyleBackColor = false;
+            customButton2.Click += customButton2_Click;
+            // 
             // ViewAttendanceRecord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -135,6 +187,9 @@
             BackColor = Color.FromArgb(0, 26, 51);
             BackgroundImage = Properties.Resources.BG;
             ClientSize = new Size(1184, 711);
+            Controls.Add(customButton2);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(customButton1);
             Controls.Add(RosaryMonth);
             Controls.Add(BackBtn);
             Controls.Add(exportBtn);
@@ -158,5 +213,8 @@
         private Action.CustomButton exportBtn;
         private Action.CustomButton BackBtn;
         private Label RosaryMonth;
+        private Action.CustomButton customButton1;
+        private DateTimePicker dateTimePicker1;
+        private Action.CustomButton customButton2;
     }
 }

@@ -18,7 +18,7 @@ namespace Project_001.Action
         public actionPage()
         {
             InitializeComponent();
-           
+
         }
 
         private void DigitalClock_Tick(object sender, EventArgs e)
@@ -42,7 +42,6 @@ namespace Project_001.Action
             mainScreenPage mainscreenPage = new mainScreenPage();
             mainscreenPage.Show();
             this.Close();
-
         }
 
         private void RegisterNewBtn_Click(object sender, EventArgs e)
@@ -54,6 +53,13 @@ namespace Project_001.Action
             regPage.Show();
 
             // Close the current actionPage form
+            this.Close();
+        }
+
+        private void AccStatusBtn_Click(object sender, EventArgs e)
+        {
+            AccountStatusPage accountStatusPage = new AccountStatusPage();
+            accountStatusPage.Show();
             this.Close();
         }
     }
