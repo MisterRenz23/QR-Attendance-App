@@ -163,6 +163,8 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.FromArgb(200, 227, 255);
+            pictureBox1.Image = Properties.Resources.placeholder;
+            pictureBox1.InitialImage = Properties.Resources.placeholder;
             pictureBox1.Location = new Point(102, 353);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(211, 211);

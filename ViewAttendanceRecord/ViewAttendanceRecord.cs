@@ -424,6 +424,31 @@ namespace Project_001
             }
         }
 
+        private void UpdateIsBlockedStatus(string studentId, int totalAbsences)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // If the student has 3 or more absences, block the account (isBlocked = 1), otherwise unblock (isBlocked = 0)
+                    string updateQuery = "UPDATE registration_tb SET IsBlocked = @IsBlocked WHERE ID = @ID";
+                    using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", studentId);
+                        cmd.Parameters.AddWithValue("@IsBlocked", totalAbsences >= 3 ? 1 : 0); // Block if 3 or more absences
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating isBlocked status for student {studentId}: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
 
 
         // Function to calculate absences for a student
@@ -489,8 +514,8 @@ namespace Project_001
                 {
                     conn.Open();
 
-                    // Query to get all students and their blocked status from registration_tb
-                    string query = "SELECT ID, FirstName, LastName, IsBlocked FROM registration_tb";
+                    // Query to get all students from registration_tb
+                    string query = "SELECT ID, FirstName, LastName FROM registration_tb";
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
@@ -508,13 +533,15 @@ namespace Project_001
                                 string id = reader["ID"].ToString();
                                 string firstName = reader["FirstName"].ToString();
                                 string lastName = reader["LastName"].ToString();
-                                bool isBlocked = Convert.ToBoolean(reader["IsBlocked"]); // Blocked status
 
                                 // Set the fixed start date as October 1, 2024
                                 DateTime absenceStartDate = new DateTime(2024, 10, 1);
 
                                 // Call the method to get absences for each student
                                 (int totalAbsences, List<DateTime> absenceDates) = CalculateStudentAbsences(id, absenceStartDate);
+
+                                // ** Update the IsBlocked status based on absences **
+                                UpdateIsBlockedStatus(id, totalAbsences);
 
                                 // Only add students with at least one absence to the summary
                                 if (totalAbsences > 0)
@@ -525,7 +552,9 @@ namespace Project_001
                                     row["LastName"] = lastName;
                                     row["TotalAbsences"] = totalAbsences;
                                     row["AbsenceDates"] = string.Join(", ", absenceDates.Select(d => d.ToString("yyyy-MM-dd")));
-                                    row["IsBlocked"] = isBlocked; // Set the IsBlocked status for each row
+
+                                    // Fetch the updated IsBlocked status from the database after the update
+                                    row["IsBlocked"] = totalAbsences >= 3; // If the student has 3 or more absences, they are blocked
                                     absenceSummary.Rows.Add(row);
                                 }
                             }
@@ -548,6 +577,7 @@ namespace Project_001
                 MessageBox.Show("Error generating absence summary: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
     }
