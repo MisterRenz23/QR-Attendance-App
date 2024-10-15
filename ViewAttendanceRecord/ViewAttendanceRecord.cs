@@ -344,7 +344,6 @@ namespace Project_001
             ExportAttendanceForDay(selectedDate);
         }
 
-        // Function to export absence summary to Excel
         private void ExportAbsenceSummaryToExcel(DataTable absenceSummary)
         {
             try
@@ -359,38 +358,60 @@ namespace Project_001
                     {
                         using (XLWorkbook workbook = new XLWorkbook())
                         {
-                            var worksheet = workbook.Worksheets.Add("AbsenceSummary");
+                            // Create two separate worksheets for active and blocked accounts
+                            var activeWorksheet = workbook.Worksheets.Add("Active Accounts");
+                            var blockedWorksheet = workbook.Worksheets.Add("Blocked Accounts");
 
-                            // Manually set the headers
-                            worksheet.Cell(1, 1).Value = "ID";
-                            worksheet.Cell(1, 2).Value = "First Name";
-                            worksheet.Cell(1, 3).Value = "Last Name";
-                            worksheet.Cell(1, 4).Value = "Total Absences";
-                            worksheet.Cell(1, 5).Value = "Absence Dates";
-
-                            // Populate the worksheet with data from the DataTable
-                            for (int i = 0; i < absenceSummary.Rows.Count; i++)
+                            // Set headers for both worksheets
+                            string[] headers = { "ID", "First Name", "Last Name", "Total Absences", "Absence Dates" };
+                            for (int i = 0; i < headers.Length; i++)
                             {
-                                // Ensure that values are converted to the correct types before assigning them to the worksheet cells
-                                worksheet.Cell(i + 2, 1).Value = absenceSummary.Rows[i]["ID"].ToString();  // Convert ID to string
-                                worksheet.Cell(i + 2, 2).Value = absenceSummary.Rows[i]["FirstName"].ToString();  // Convert FirstName to string
-                                worksheet.Cell(i + 2, 3).Value = absenceSummary.Rows[i]["LastName"].ToString();  // Convert LastName to string
-                                worksheet.Cell(i + 2, 4).Value = Convert.ToInt32(absenceSummary.Rows[i]["TotalAbsences"]);  // Convert TotalAbsences to integer
-                                worksheet.Cell(i + 2, 5).Value = absenceSummary.Rows[i]["AbsenceDates"].ToString();  // Convert AbsenceDates to string
+                                activeWorksheet.Cell(1, i + 1).Value = headers[i];
+                                blockedWorksheet.Cell(1, i + 1).Value = headers[i];
                             }
 
+                            int activeRow = 2;
+                            int blockedRow = 2;
 
-                            // Optionally, adjust the column width to fit the content
-                            worksheet.Columns().AdjustToContents();
+                            // Separate the active and blocked accounts
+                            foreach (DataRow row in absenceSummary.Rows)
+                            {
+                                bool isBlocked = Convert.ToBoolean(row["IsBlocked"]);
 
-                            // Apply center alignment to all data
-                            var dataRange = worksheet.RangeUsed();
-                            dataRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                if (isBlocked)
+                                {
+                                    // Populate blocked worksheet
+                                    blockedWorksheet.Cell(blockedRow, 1).Value = row["ID"].ToString();
+                                    blockedWorksheet.Cell(blockedRow, 2).Value = row["FirstName"].ToString();
+                                    blockedWorksheet.Cell(blockedRow, 3).Value = row["LastName"].ToString();
+                                    blockedWorksheet.Cell(blockedRow, 4).Value = Convert.ToInt32(row["TotalAbsences"]);
+                                    blockedWorksheet.Cell(blockedRow, 5).Value = row["AbsenceDates"].ToString();
+                                    blockedRow++;
+                                }
+                                else
+                                {
+                                    // Populate active worksheet
+                                    activeWorksheet.Cell(activeRow, 1).Value = row["ID"].ToString();
+                                    activeWorksheet.Cell(activeRow, 2).Value = row["FirstName"].ToString();
+                                    activeWorksheet.Cell(activeRow, 3).Value = row["LastName"].ToString();
+                                    activeWorksheet.Cell(activeRow, 4).Value = Convert.ToInt32(row["TotalAbsences"]);
+                                    activeWorksheet.Cell(activeRow, 5).Value = row["AbsenceDates"].ToString();
+                                    activeRow++;
+                                }
+                            }
 
-                            // Bold the header row
-                            worksheet.Row(1).Style.Font.Bold = true;
+                            // Adjust columns for both worksheets
+                            activeWorksheet.Columns().AdjustToContents();
+                            blockedWorksheet.Columns().AdjustToContents();
 
-                            // Save the workbook to the selected file path
+                            // Style both worksheets (center alignment, bold headers)
+                            activeWorksheet.RangeUsed().Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            blockedWorksheet.RangeUsed().Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            activeWorksheet.Row(1).Style.Font.Bold = true;
+                            blockedWorksheet.Row(1).Style.Font.Bold = true;
+
+                            // Save the workbook
                             workbook.SaveAs(sfd.FileName);
                             MessageBox.Show("Absence summary successfully exported to Excel!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -402,6 +423,8 @@ namespace Project_001
                 MessageBox.Show("Error exporting absence summary: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         // Function to calculate absences for a student
         private (int, List<DateTime>) CalculateStudentAbsences(string id, DateTime startDate)
@@ -466,8 +489,8 @@ namespace Project_001
                 {
                     conn.Open();
 
-                    // Query to get all students from registration_tb
-                    string query = "SELECT ID, FirstName, LastName FROM registration_tb";
+                    // Query to get all students and their blocked status from registration_tb
+                    string query = "SELECT ID, FirstName, LastName, IsBlocked FROM registration_tb";
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
@@ -478,12 +501,14 @@ namespace Project_001
                             absenceSummary.Columns.Add("LastName", typeof(string));
                             absenceSummary.Columns.Add("TotalAbsences", typeof(int));
                             absenceSummary.Columns.Add("AbsenceDates", typeof(string)); // This will store the dates as a comma-separated string
+                            absenceSummary.Columns.Add("IsBlocked", typeof(bool)); // Explicitly add the IsBlocked column
 
                             while (reader.Read())
                             {
                                 string id = reader["ID"].ToString();
                                 string firstName = reader["FirstName"].ToString();
                                 string lastName = reader["LastName"].ToString();
+                                bool isBlocked = Convert.ToBoolean(reader["IsBlocked"]); // Blocked status
 
                                 // Set the fixed start date as October 1, 2024
                                 DateTime absenceStartDate = new DateTime(2024, 10, 1);
@@ -494,7 +519,14 @@ namespace Project_001
                                 // Only add students with at least one absence to the summary
                                 if (totalAbsences > 0)
                                 {
-                                    absenceSummary.Rows.Add(id, firstName, lastName, totalAbsences, string.Join(", ", absenceDates.Select(d => d.ToString("yyyy-MM-dd"))));
+                                    DataRow row = absenceSummary.NewRow();
+                                    row["ID"] = id;
+                                    row["FirstName"] = firstName;
+                                    row["LastName"] = lastName;
+                                    row["TotalAbsences"] = totalAbsences;
+                                    row["AbsenceDates"] = string.Join(", ", absenceDates.Select(d => d.ToString("yyyy-MM-dd")));
+                                    row["IsBlocked"] = isBlocked; // Set the IsBlocked status for each row
+                                    absenceSummary.Rows.Add(row);
                                 }
                             }
 
@@ -516,5 +548,7 @@ namespace Project_001
                 MessageBox.Show("Error generating absence summary: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

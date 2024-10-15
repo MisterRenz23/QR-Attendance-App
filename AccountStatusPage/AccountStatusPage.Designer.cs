@@ -103,9 +103,11 @@
             // 
             // pictureBoxStudentPhoto
             // 
+            pictureBoxStudentPhoto.Image = Properties.Resources.placeholder;
             pictureBoxStudentPhoto.Location = new Point(898, 338);
             pictureBoxStudentPhoto.Name = "pictureBoxStudentPhoto";
             pictureBoxStudentPhoto.Size = new Size(211, 211);
+            pictureBoxStudentPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxStudentPhoto.TabIndex = 4;
             pictureBoxStudentPhoto.TabStop = false;
             // 
