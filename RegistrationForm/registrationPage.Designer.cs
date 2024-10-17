@@ -58,6 +58,8 @@
             // 
             // Button1
             // 
+            Button1.Anchor = AnchorStyles.None;
+            Button1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Button1.Location = new Point(134, 374);
             Button1.Name = "Button1";
             Button1.Size = new Size(112, 33);
@@ -68,6 +70,7 @@
             // 
             // firstName_text
             // 
+            firstName_text.Anchor = AnchorStyles.None;
             firstName_text.Location = new Point(488, 209);
             firstName_text.Name = "firstName_text";
             firstName_text.Size = new Size(175, 23);
@@ -76,6 +79,7 @@
             // 
             // id_text
             // 
+            id_text.Anchor = AnchorStyles.None;
             id_text.Location = new Point(488, 161);
             id_text.Name = "id_text";
             id_text.Size = new Size(175, 23);
@@ -83,42 +87,46 @@
             // 
             // FirstNameLabl
             // 
+            FirstNameLabl.Anchor = AnchorStyles.None;
             FirstNameLabl.AutoSize = true;
             FirstNameLabl.BackColor = Color.Transparent;
-            FirstNameLabl.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FirstNameLabl.Font = new Font("Public Sans", 14F);
             FirstNameLabl.ForeColor = Color.White;
             FirstNameLabl.Location = new Point(336, 204);
             FirstNameLabl.Name = "FirstNameLabl";
-            FirstNameLabl.Size = new Size(110, 28);
+            FirstNameLabl.Size = new Size(113, 27);
             FirstNameLabl.TabIndex = 5;
             FirstNameLabl.Text = "First Name:";
             // 
             // IDNumLabl
             // 
+            IDNumLabl.Anchor = AnchorStyles.None;
             IDNumLabl.AutoSize = true;
             IDNumLabl.BackColor = Color.Transparent;
-            IDNumLabl.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            IDNumLabl.Font = new Font("Public Sans", 14F);
             IDNumLabl.ForeColor = Color.White;
             IDNumLabl.Location = new Point(335, 156);
             IDNumLabl.Name = "IDNumLabl";
-            IDNumLabl.Size = new Size(112, 28);
+            IDNumLabl.Size = new Size(109, 27);
             IDNumLabl.TabIndex = 6;
             IDNumLabl.Text = "ID Number:";
             // 
             // LastNameLabl
             // 
+            LastNameLabl.Anchor = AnchorStyles.None;
             LastNameLabl.AutoSize = true;
             LastNameLabl.BackColor = Color.Transparent;
-            LastNameLabl.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LastNameLabl.Font = new Font("Public Sans", 14F);
             LastNameLabl.ForeColor = Color.White;
             LastNameLabl.Location = new Point(335, 250);
             LastNameLabl.Name = "LastNameLabl";
-            LastNameLabl.Size = new Size(107, 28);
+            LastNameLabl.Size = new Size(112, 27);
             LastNameLabl.TabIndex = 6;
             LastNameLabl.Text = "Last Name:";
             // 
             // lastName_text
             // 
+            lastName_text.Anchor = AnchorStyles.None;
             lastName_text.Location = new Point(488, 255);
             lastName_text.Name = "lastName_text";
             lastName_text.Size = new Size(175, 23);
@@ -126,18 +134,20 @@
             // 
             // BirthdayLabl
             // 
+            BirthdayLabl.Anchor = AnchorStyles.None;
             BirthdayLabl.AutoSize = true;
             BirthdayLabl.BackColor = Color.Transparent;
-            BirthdayLabl.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BirthdayLabl.Font = new Font("Public Sans", 14F);
             BirthdayLabl.ForeColor = Color.White;
             BirthdayLabl.Location = new Point(335, 295);
             BirthdayLabl.Name = "BirthdayLabl";
-            BirthdayLabl.Size = new Size(89, 28);
+            BirthdayLabl.Size = new Size(91, 27);
             BirthdayLabl.TabIndex = 6;
             BirthdayLabl.Text = "Birthday:";
             // 
             // birthdayPicker
             // 
+            birthdayPicker.Anchor = AnchorStyles.None;
             birthdayPicker.Format = DateTimePickerFormat.Short;
             birthdayPicker.Location = new Point(488, 300);
             birthdayPicker.Name = "birthdayPicker";
@@ -147,19 +157,21 @@
             // 
             // GenderLabl
             // 
+            GenderLabl.Anchor = AnchorStyles.None;
             GenderLabl.AutoSize = true;
             GenderLabl.BackColor = Color.Transparent;
-            GenderLabl.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GenderLabl.Font = new Font("Public Sans", 14F);
             GenderLabl.ForeColor = Color.White;
             GenderLabl.Location = new Point(335, 340);
             GenderLabl.Name = "GenderLabl";
-            GenderLabl.Size = new Size(80, 28);
+            GenderLabl.Size = new Size(81, 27);
             GenderLabl.TabIndex = 11;
             GenderLabl.Text = "Gender:";
             GenderLabl.Click += Label4_Click;
             // 
             // radioButton1
             // 
+            radioButton1.Anchor = AnchorStyles.None;
             radioButton1.AutoSize = true;
             radioButton1.BackColor = Color.Transparent;
             radioButton1.ForeColor = Color.White;
@@ -174,6 +186,7 @@
             // 
             // radioButton2
             // 
+            radioButton2.Anchor = AnchorStyles.None;
             radioButton2.AutoSize = true;
             radioButton2.BackColor = Color.Transparent;
             radioButton2.ForeColor = Color.Transparent;
@@ -188,6 +201,7 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = Color.FromArgb(200, 227, 255);
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Location = new Point(92, 156);
@@ -199,6 +213,8 @@
             // 
             // Button2
             // 
+            Button2.Anchor = AnchorStyles.None;
+            Button2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             Button2.Location = new Point(551, 392);
             Button2.Name = "Button2";
             Button2.Size = new Size(112, 33);
@@ -209,6 +225,8 @@
             // 
             // Button3
             // 
+            Button3.Anchor = AnchorStyles.None;
+            Button3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             Button3.Location = new Point(413, 392);
             Button3.Name = "Button3";
             Button3.Size = new Size(112, 33);
@@ -219,6 +237,7 @@
             // 
             // pictureBox2
             // 
+            pictureBox2.Anchor = AnchorStyles.None;
             pictureBox2.BackColor = Color.FromArgb(200, 227, 255);
             pictureBox2.BorderStyle = BorderStyle.FixedSingle;
             pictureBox2.Location = new Point(823, 267);
@@ -230,6 +249,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Public Sans", 20.2499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.White;
@@ -242,6 +262,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.None;
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Public Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.WhiteSmoke;
@@ -258,6 +279,7 @@
             // 
             // rosaryMonth
             // 
+            rosaryMonth.Anchor = AnchorStyles.None;
             rosaryMonth.AutoSize = true;
             rosaryMonth.BackColor = Color.Transparent;
             rosaryMonth.Font = new Font("Public Sans", 24.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -271,6 +293,7 @@
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -283,6 +306,7 @@
             // 
             // BackBtn
             // 
+            BackBtn.Anchor = AnchorStyles.None;
             BackBtn.BackColor = Color.FromArgb(12, 23, 120);
             BackBtn.BackgroundColor = Color.FromArgb(12, 23, 120);
             BackBtn.BorderColor = Color.Transparent;
@@ -331,10 +355,9 @@
             Controls.Add(FirstNameLabl);
             Controls.Add(IDNumLabl);
             DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
             Name = "registrationPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registration Page";
             Load += registrationPage_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

@@ -282,8 +282,10 @@ namespace Project_001
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            var newForm = new actionPage();
-            newForm.Show();
+
+            actionPage action = new actionPage();
+            action.WindowState = this.WindowState; // Inherit window state
+            action.Show();
             this.Hide();
 
         }

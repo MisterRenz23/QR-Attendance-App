@@ -32,6 +32,7 @@ namespace Project_001
             //testDate = new DateTime(2024, 8, 29);
             LoadScannedUsers();
             this.FormClosed += ViewAttendanceRecord_FormClosed;
+            this.Resize += new EventHandler(ViewAttendanceRecord_Resize);
         }
 
         private void ViewAttendanceRecord_FormClosed(object sender, FormClosedEventArgs e)
@@ -320,8 +321,9 @@ namespace Project_001
         }
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            var newForm = new mainScreenPage();
-            newForm.Show();
+            mainScreenPage action = new mainScreenPage();
+            action.WindowState = this.WindowState; // Inherit window state
+            action.Show();
             this.Hide();
         }
 
@@ -578,7 +580,22 @@ namespace Project_001
             }
         }
 
-
-
+        private void ViewAttendanceRecord_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (this.WindowState == FormWindowState.Normal)
+            {
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Normal;
+                }
+            }
+        }
     }
 }

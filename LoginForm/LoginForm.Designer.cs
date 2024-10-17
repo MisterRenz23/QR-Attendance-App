@@ -40,18 +40,20 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Public Sans Black", 39.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Location = new Point(227, 168);
             label1.Name = "label1";
-            label1.Size = new Size(766, 74);
+            label1.Size = new Size(768, 74);
             label1.TabIndex = 0;
             label1.Text = "Attendance Checker System";
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Public Sans", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -64,6 +66,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Public Sans", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -76,6 +79,7 @@
             // 
             // user_text
             // 
+            user_text.Anchor = AnchorStyles.None;
             user_text.Font = new Font("Public Sans", 14F);
             user_text.Location = new Point(489, 322);
             user_text.Name = "user_text";
@@ -85,6 +89,7 @@
             // 
             // password_text
             // 
+            password_text.Anchor = AnchorStyles.None;
             password_text.Font = new Font("Public Sans", 14F);
             password_text.Location = new Point(489, 412);
             password_text.Name = "password_text";
@@ -94,6 +99,7 @@
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.None;
             button1.BackColor = Color.FromArgb(12, 23, 120);
             button1.BackgroundColor = Color.FromArgb(12, 23, 120);
             button1.BorderColor = Color.WhiteSmoke;
@@ -128,12 +134,12 @@
             Controls.Add(label3);
             Controls.Add(label2);
             DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Attendance System";
             Load += LoginForm_Load;
+            Resize += LoginForm_Resize;
             ResumeLayout(false);
             PerformLayout();
         }

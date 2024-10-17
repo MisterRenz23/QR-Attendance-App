@@ -43,6 +43,8 @@ namespace Project_001
             id_text.TabIndex = 0;
             id_text.Focus();
 
+            this.Resize += new EventHandler(mainScreenPage_Resize);
+
         }
 
         private void mainScreenPage_FormClosed(object sender, FormClosedEventArgs e)
@@ -468,29 +470,37 @@ namespace Project_001
             // Close the current form and open AttendanceRecordForm
             this.Close();
             ViewAttendanceRecord scannedUsersForm = new ViewAttendanceRecord();
+            scannedUsersForm.WindowState = this.WindowState; // Inherit window state from mainScreenPage
             scannedUsersForm.Show();
+
         }
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            var newForm = new actionPage();
-            newForm.Show();
+            actionPage action = new actionPage();
+            action.WindowState = this.WindowState; // Inherit window state
+            action.Show();
             this.Hide();
         }
 
-        private void label8_Click(object sender, EventArgs e)
+        private void mainScreenPage_Resize(object sender, EventArgs e)
         {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                // Maximize any other forms if needed, or apply further actions
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (this.WindowState == FormWindowState.Normal)
+            {
+                // Optionally, restore other forms to normal
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Normal;
+                }
+            }
         }
     }
 }

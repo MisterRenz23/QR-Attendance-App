@@ -20,6 +20,19 @@ namespace Project_001
         public AccountStatusPage()
         {
             InitializeComponent();
+            this.Resize += new EventHandler(Form_Resize);
+
+            // Set the custom format for the DateTimePicker control
+            dateTimePickerAttendanceDate.Format = DateTimePickerFormat.Custom;
+            dateTimePickerAttendanceDate.CustomFormat = "ddd, MM/dd/yyyy";
+        }
+
+
+        private void OpenAccountStatusPage()
+        {
+            AccountStatusPage regPage = new AccountStatusPage();
+            regPage.WindowState = this.WindowState; // Inherit window state
+            regPage.Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -34,6 +47,11 @@ namespace Project_001
 
             // Load all attendance records or any other setup
             LoadAllAttendanceRecords();
+
+            DateTimePicker testPicker = new DateTimePicker();
+            testPicker.Format = DateTimePickerFormat.Custom;
+            testPicker.CustomFormat = "ddd, MM/dd/yyyy"; // Set to "Fri, 10/08/2024" format
+            this.Controls.Add(testPicker); // Add it directly to the form for testing
         }
 
         private void RefreshAttendanceAndAbsenceRecords(string studentId, DateTime absenceStartDate)
@@ -361,6 +379,8 @@ namespace Project_001
             DateTime attendanceDate = dateTimePickerAttendanceDate.Value.Date;
             DateTime attendanceTime = DateTime.Now;
 
+
+
             if (string.IsNullOrEmpty(studentId))
             {
                 MessageBox.Show("Please enter a valid Student ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -482,10 +502,10 @@ namespace Project_001
                     }
 
                     // Check if there are no absences to show a message
-                  //  if (absences == 0)
-                   // {
-                      //  MessageBox.Show("No absences found for the student.");
-                   // }
+                    //  if (absences == 0)
+                    // {
+                    //  MessageBox.Show("No absences found for the student.");
+                    // }
                 }
             }
             catch (Exception ex)
@@ -663,19 +683,31 @@ namespace Project_001
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            var newForm = new actionPage();
-            newForm.Show();
+            actionPage action = new actionPage();
+            action.WindowState = this.WindowState; // Inherit window state
+            action.Show();
             this.Hide();
         }
 
-        private void InsertRecordBtn_Click(object sender, EventArgs e)
+        private void Form_Resize(object sender, EventArgs e)
         {
-
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                // Set other forms to maximized
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (this.WindowState == FormWindowState.Normal)
+            {
+                // Optionally, set other forms back to normal if desired
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Normal;
+                }
+            }
         }
 
-        private void labelStatus_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

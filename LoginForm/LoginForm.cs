@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Project_001.Action;
 
 
 namespace Project_001
@@ -22,6 +23,8 @@ namespace Project_001
         {
             InitializeComponent();
             con.DefaultTimeout = 5000; // 5000 ms = 5 seconds
+
+            this.Resize += new EventHandler(LoginForm_Resize);
 
             // Ensure the fields are cleared on startup
             user_text.Text = string.Empty;
@@ -98,9 +101,12 @@ namespace Project_001
                         if (rd.Read())
                         {
                             this.Hide();
+                            // Open the ActionPage and inherit the window state
                             Action.actionPage mf = new Action.actionPage();
+                            mf.WindowState = this.WindowState; // Inherit the window state from LoginForm
                             mf.ShowDialog();
-                        }
+
+                                                  }
                         else
                         {
                             MessageBox.Show("Wrong Username or Password. Please try again.");
@@ -118,6 +124,25 @@ namespace Project_001
                 if (con.State == System.Data.ConnectionState.Open)
                 {
                     con.Close();
+                }
+            }
+        }
+        private void LoginForm_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                // Set other forms to maximized
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (this.WindowState == FormWindowState.Normal)
+            {
+                // Optionally, set other forms back to normal if desired
+                foreach (Form form in Application.OpenForms)
+                {
+                    form.WindowState = FormWindowState.Normal;
                 }
             }
         }

@@ -56,45 +56,52 @@
             // 
             // txtStudentId
             // 
-            txtStudentId.Location = new Point(114, 97);
+            txtStudentId.Anchor = AnchorStyles.None;
+            txtStudentId.Location = new Point(253, 136);
             txtStudentId.Name = "txtStudentId";
-            txtStudentId.Size = new Size(152, 23);
+            txtStudentId.Size = new Size(175, 23);
             txtStudentId.TabIndex = 0;
             txtStudentId.TextChanged += textBox1_TextChanged;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Location = new Point(40, 100);
+            label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.WhiteSmoke;
+            label1.Location = new Point(101, 135);
             label1.Name = "label1";
-            label1.Size = new Size(68, 15);
+            label1.Size = new Size(133, 20);
             label1.TabIndex = 1;
-            label1.Text = "ID Number:";
+            label1.Text = "Enter ID Number:";
             // 
             // dataGridViewAttendance
             // 
             dataGridViewAttendance.AllowUserToAddRows = false;
+            dataGridViewAttendance.Anchor = AnchorStyles.None;
             dataGridViewAttendance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAttendance.Location = new Point(40, 171);
+            dataGridViewAttendance.Location = new Point(696, 377);
             dataGridViewAttendance.Name = "dataGridViewAttendance";
             dataGridViewAttendance.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAttendance.Size = new Size(448, 416);
+            dataGridViewAttendance.Size = new Size(375, 175);
             dataGridViewAttendance.TabIndex = 2;
             // 
             // btnSubmit
             // 
-            btnSubmit.BackColor = Color.MediumSlateBlue;
-            btnSubmit.BackgroundColor = Color.MediumSlateBlue;
+            btnSubmit.Anchor = AnchorStyles.None;
+            btnSubmit.BackColor = Color.Navy;
+            btnSubmit.BackgroundColor = Color.Navy;
             btnSubmit.BorderColor = Color.PaleVioletRed;
             btnSubmit.BorderRadius = 20;
             btnSubmit.BorderSize = 0;
             btnSubmit.FlatAppearance.BorderSize = 0;
             btnSubmit.FlatStyle = FlatStyle.Flat;
+            btnSubmit.Font = new Font("Public Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSubmit.ForeColor = Color.White;
-            btnSubmit.Location = new Point(272, 87);
+            btnSubmit.Location = new Point(444, 133);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(150, 40);
+            btnSubmit.Size = new Size(79, 32);
             btnSubmit.TabIndex = 3;
             btnSubmit.Text = "Submit";
             btnSubmit.TextColor = Color.White;
@@ -103,8 +110,9 @@
             // 
             // pictureBoxStudentPhoto
             // 
+            pictureBoxStudentPhoto.Anchor = AnchorStyles.None;
             pictureBoxStudentPhoto.Image = Properties.Resources.placeholder;
-            pictureBoxStudentPhoto.Location = new Point(898, 338);
+            pictureBoxStudentPhoto.Location = new Point(101, 250);
             pictureBoxStudentPhoto.Name = "pictureBoxStudentPhoto";
             pictureBoxStudentPhoto.Size = new Size(211, 211);
             pictureBoxStudentPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -113,8 +121,9 @@
             // 
             // textBoxBirthday
             // 
+            textBoxBirthday.Anchor = AnchorStyles.None;
             textBoxBirthday.Enabled = false;
-            textBoxBirthday.Location = new Point(700, 512);
+            textBoxBirthday.Location = new Point(473, 366);
             textBoxBirthday.Name = "textBoxBirthday";
             textBoxBirthday.ReadOnly = true;
             textBoxBirthday.Size = new Size(153, 23);
@@ -122,20 +131,22 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
-            label5.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(539, 507);
+            label5.Location = new Point(335, 361);
             label5.Name = "label5";
-            label5.Size = new Size(89, 28);
+            label5.Size = new Size(93, 28);
             label5.TabIndex = 25;
             label5.Text = "Birthday:";
             // 
             // textBoxGender
             // 
+            textBoxGender.Anchor = AnchorStyles.None;
             textBoxGender.Enabled = false;
-            textBoxGender.Location = new Point(700, 558);
+            textBoxGender.Location = new Point(473, 405);
             textBoxGender.Name = "textBoxGender";
             textBoxGender.ReadOnly = true;
             textBoxGender.Size = new Size(153, 23);
@@ -143,20 +154,22 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(539, 553);
+            label4.Location = new Point(335, 401);
             label4.Name = "label4";
-            label4.Size = new Size(80, 28);
+            label4.Size = new Size(85, 28);
             label4.TabIndex = 23;
             label4.Text = "Gender:";
             // 
             // textBoxFirstName
             // 
+            textBoxFirstName.Anchor = AnchorStyles.None;
             textBoxFirstName.Enabled = false;
-            textBoxFirstName.Location = new Point(700, 419);
+            textBoxFirstName.Location = new Point(473, 283);
             textBoxFirstName.Name = "textBoxFirstName";
             textBoxFirstName.ReadOnly = true;
             textBoxFirstName.Size = new Size(153, 23);
@@ -164,8 +177,9 @@
             // 
             // textBoxLastName
             // 
+            textBoxLastName.Anchor = AnchorStyles.None;
             textBoxLastName.Enabled = false;
-            textBoxLastName.Location = new Point(700, 464);
+            textBoxLastName.Location = new Point(473, 323);
             textBoxLastName.Name = "textBoxLastName";
             textBoxLastName.ReadOnly = true;
             textBoxLastName.Size = new Size(153, 23);
@@ -173,53 +187,58 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(539, 459);
+            label2.Location = new Point(334, 318);
             label2.Name = "label2";
-            label2.Size = new Size(107, 28);
+            label2.Size = new Size(113, 28);
             label2.TabIndex = 20;
             label2.Text = "Last Name:";
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(539, 414);
+            label3.Location = new Point(335, 279);
             label3.Name = "label3";
-            label3.Size = new Size(110, 28);
+            label3.Size = new Size(115, 28);
             label3.TabIndex = 19;
             label3.Text = "First Name:";
             // 
             // labelStatus
             // 
+            labelStatus.Anchor = AnchorStyles.None;
             labelStatus.AutoSize = true;
             labelStatus.BackColor = Color.Transparent;
-            labelStatus.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelStatus.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
             labelStatus.ForeColor = Color.White;
-            labelStatus.Location = new Point(949, 552);
+            labelStatus.Location = new Point(151, 209);
             labelStatus.Name = "labelStatus";
-            labelStatus.Size = new Size(110, 28);
+            labelStatus.Size = new Size(114, 28);
             labelStatus.TabIndex = 28;
             labelStatus.Text = "Status: N/A";
             // 
             // DeleteBtn
             // 
-            DeleteBtn.BackColor = Color.Red;
-            DeleteBtn.BackgroundColor = Color.Red;
+            DeleteBtn.Anchor = AnchorStyles.None;
+            DeleteBtn.BackColor = Color.FromArgb(192, 0, 0);
+            DeleteBtn.BackgroundColor = Color.FromArgb(192, 0, 0);
             DeleteBtn.BorderColor = Color.PaleVioletRed;
             DeleteBtn.BorderRadius = 20;
             DeleteBtn.BorderSize = 0;
             DeleteBtn.FlatAppearance.BorderSize = 0;
             DeleteBtn.FlatStyle = FlatStyle.Flat;
+            DeleteBtn.Font = new Font("Public Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(374, 593);
+            DeleteBtn.Location = new Point(971, 571);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(114, 37);
+            DeleteBtn.Size = new Size(100, 30);
             DeleteBtn.TabIndex = 29;
             DeleteBtn.Text = "Delete Record";
             DeleteBtn.TextColor = Color.White;
@@ -228,6 +247,7 @@
             // 
             // BackBtn
             // 
+            BackBtn.Anchor = AnchorStyles.None;
             BackBtn.BackColor = Color.FromArgb(12, 23, 120);
             BackBtn.BackgroundColor = Color.FromArgb(12, 23, 120);
             BackBtn.BorderColor = Color.PaleVioletRed;
@@ -237,7 +257,7 @@
             BackBtn.FlatStyle = FlatStyle.Flat;
             BackBtn.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             BackBtn.ForeColor = Color.WhiteSmoke;
-            BackBtn.Location = new Point(40, 645);
+            BackBtn.Location = new Point(25, 654);
             BackBtn.Name = "BackBtn";
             BackBtn.Size = new Size(90, 30);
             BackBtn.TabIndex = 30;
@@ -248,17 +268,19 @@
             // 
             // InsertRecordBtn
             // 
-            InsertRecordBtn.BackColor = Color.Lime;
-            InsertRecordBtn.BackgroundColor = Color.Lime;
+            InsertRecordBtn.Anchor = AnchorStyles.None;
+            InsertRecordBtn.BackColor = Color.Green;
+            InsertRecordBtn.BackgroundColor = Color.Green;
             InsertRecordBtn.BorderColor = Color.PaleVioletRed;
             InsertRecordBtn.BorderRadius = 20;
             InsertRecordBtn.BorderSize = 0;
             InsertRecordBtn.FlatAppearance.BorderSize = 0;
             InsertRecordBtn.FlatStyle = FlatStyle.Flat;
+            InsertRecordBtn.Font = new Font("Public Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InsertRecordBtn.ForeColor = Color.White;
-            InsertRecordBtn.Location = new Point(40, 593);
+            InsertRecordBtn.Location = new Point(696, 570);
             InsertRecordBtn.Name = "InsertRecordBtn";
-            InsertRecordBtn.Size = new Size(114, 37);
+            InsertRecordBtn.Size = new Size(100, 30);
             InsertRecordBtn.TabIndex = 31;
             InsertRecordBtn.Text = "Insert Record";
             InsertRecordBtn.TextColor = Color.White;
@@ -267,9 +289,12 @@
             // 
             // dateTimePickerAttendanceDate
             // 
-            dateTimePickerAttendanceDate.Location = new Point(161, 602);
+            dateTimePickerAttendanceDate.Anchor = AnchorStyles.None;
+            dateTimePickerAttendanceDate.CalendarFont = new Font("Public Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerAttendanceDate.CustomFormat = "ddd, MM/dd/yyyy";
+            dateTimePickerAttendanceDate.Location = new Point(810, 574);
             dateTimePickerAttendanceDate.Name = "dateTimePickerAttendanceDate";
-            dateTimePickerAttendanceDate.Size = new Size(193, 23);
+            dateTimePickerAttendanceDate.Size = new Size(155, 23);
             dateTimePickerAttendanceDate.TabIndex = 32;
             // 
             // dataGridViewAbsences
@@ -277,38 +302,41 @@
             dataGridViewAbsences.AllowUserToAddRows = false;
             dataGridViewAbsences.AllowUserToResizeColumns = false;
             dataGridViewAbsences.AllowUserToResizeRows = false;
+            dataGridViewAbsences.Anchor = AnchorStyles.None;
             dataGridViewAbsences.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewAbsences.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewAbsences.Enabled = false;
-            dataGridViewAbsences.Location = new Point(544, 171);
+            dataGridViewAbsences.Location = new Point(696, 135);
             dataGridViewAbsences.Name = "dataGridViewAbsences";
             dataGridViewAbsences.RowHeadersVisible = false;
             dataGridViewAbsences.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewAbsences.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAbsences.Size = new Size(269, 191);
+            dataGridViewAbsences.Size = new Size(375, 175);
             dataGridViewAbsences.TabIndex = 33;
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
-            label6.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(611, 140);
+            label6.Location = new Point(820, 95);
             label6.Name = "label6";
-            label6.Size = new Size(127, 28);
+            label6.Size = new Size(133, 28);
             label6.TabIndex = 34;
             label6.Text = "Absent Dates";
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
-            label7.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(182, 140);
+            label7.Location = new Point(810, 342);
             label7.Name = "label7";
-            label7.Size = new Size(149, 28);
+            label7.Size = new Size(154, 28);
             label7.TabIndex = 35;
             label7.Text = "Recorded Dates";
             // 
@@ -343,6 +371,7 @@
             Controls.Add(txtStudentId);
             DoubleBuffered = true;
             Name = "AccountStatusPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AccountStatusPage";
             ((System.ComponentModel.ISupportInitialize)dataGridViewAttendance).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStudentPhoto).EndInit();

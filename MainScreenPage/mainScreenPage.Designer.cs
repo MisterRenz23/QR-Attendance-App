@@ -62,14 +62,16 @@
             // 
             // firstName_text
             // 
-            firstName_text.Location = new Point(523, 402);
+            firstName_text.Anchor = AnchorStyles.None;
+            firstName_text.Location = new Point(491, 402);
             firstName_text.Name = "firstName_text";
             firstName_text.Size = new Size(175, 23);
             firstName_text.TabIndex = 12;
             // 
             // lastName_text
             // 
-            lastName_text.Location = new Point(523, 447);
+            lastName_text.Anchor = AnchorStyles.None;
+            lastName_text.Location = new Point(491, 444);
             lastName_text.Name = "lastName_text";
             lastName_text.Size = new Size(175, 23);
             lastName_text.TabIndex = 13;
@@ -88,80 +90,88 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Public Sans", 14.2499981F, FontStyle.Regular, GraphicsUnit.Point, 162);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(362, 442);
+            label1.Location = new Point(345, 440);
             label1.Name = "label1";
-            label1.Size = new Size(107, 28);
+            label1.Size = new Size(112, 27);
             label1.TabIndex = 10;
             label1.Text = "Last Name:";
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Public Sans", 14F);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(362, 397);
+            label3.Location = new Point(344, 398);
             label3.Name = "label3";
-            label3.Size = new Size(110, 28);
+            label3.Size = new Size(113, 27);
             label3.TabIndex = 9;
             label3.Text = "First Name:";
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Public Sans", 14F);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(362, 348);
+            label2.Location = new Point(344, 353);
             label2.Name = "label2";
-            label2.Size = new Size(112, 28);
+            label2.Size = new Size(109, 27);
             label2.TabIndex = 11;
             label2.Text = "ID Number:";
             // 
             // gender_text
             // 
-            gender_text.Location = new Point(523, 541);
+            gender_text.Anchor = AnchorStyles.None;
+            gender_text.Location = new Point(491, 540);
             gender_text.Name = "gender_text";
             gender_text.Size = new Size(175, 23);
             gender_text.TabIndex = 16;
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Public Sans", 14F);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(362, 536);
+            label4.Location = new Point(344, 536);
             label4.Name = "label4";
-            label4.Size = new Size(80, 28);
+            label4.Size = new Size(81, 27);
             label4.TabIndex = 15;
             label4.Text = "Gender:";
             // 
             // birthday_text
             // 
-            birthday_text.Location = new Point(523, 495);
+            birthday_text.Anchor = AnchorStyles.None;
+            birthday_text.Location = new Point(491, 492);
             birthday_text.Name = "birthday_text";
             birthday_text.Size = new Size(175, 23);
             birthday_text.TabIndex = 18;
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
-            label5.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Public Sans", 14F);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(362, 490);
+            label5.Location = new Point(345, 488);
             label5.Name = "label5";
-            label5.Size = new Size(89, 28);
+            label5.Size = new Size(91, 27);
             label5.TabIndex = 17;
             label5.Text = "Birthday:";
             // 
             // pictureBox1
             // 
+            pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = Color.FromArgb(200, 227, 255);
             pictureBox1.Image = Properties.Resources.placeholder;
             pictureBox1.InitialImage = Properties.Resources.placeholder;
@@ -174,13 +184,15 @@
             // 
             // scanned_id
             // 
-            scanned_id.Location = new Point(523, 353);
+            scanned_id.Anchor = AnchorStyles.None;
+            scanned_id.Location = new Point(491, 357);
             scanned_id.Name = "scanned_id";
             scanned_id.Size = new Size(175, 23);
             scanned_id.TabIndex = 20;
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Public Sans", 39.7499962F, FontStyle.Bold);
             label6.ForeColor = Color.White;
@@ -193,6 +205,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.None;
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Public Sans", 20.2499981F, FontStyle.Bold);
             label7.ForeColor = Color.White;
@@ -210,6 +223,7 @@
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.None;
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Public Sans", 35.9999962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.WhiteSmoke;
@@ -219,10 +233,10 @@
             label8.TabIndex = 24;
             label8.Text = "ROSARY MONTH";
             label8.TextAlign = ContentAlignment.TopCenter;
-            label8.Click += label8_Click;
             // 
             // button2
             // 
+            button2.Anchor = AnchorStyles.None;
             button2.BackColor = Color.FromArgb(12, 23, 120);
             button2.BackgroundColor = Color.FromArgb(12, 23, 120);
             button2.BorderColor = Color.Transparent;
@@ -247,6 +261,7 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.Anchor = AnchorStyles.None;
             dataGridView1.BackgroundColor = Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -265,7 +280,6 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(278, 104);
             dataGridView1.TabIndex = 26;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // Number
             // 
@@ -298,6 +312,7 @@
             // 
             // BackBtn
             // 
+            BackBtn.Anchor = AnchorStyles.None;
             BackBtn.BackColor = Color.FromArgb(12, 23, 120);
             BackBtn.BackgroundColor = Color.FromArgb(12, 23, 120);
             BackBtn.BorderColor = Color.PaleVioletRed;
@@ -325,7 +340,6 @@
             statusLabel.TabIndex = 28;
             statusLabel.TextAlign = ContentAlignment.MiddleCenter;
             statusLabel.Visible = false;
-            statusLabel.Click += label9_Click;
             // 
             // contextMenuStrip1
             // 
@@ -360,12 +374,12 @@
             Controls.Add(label3);
             Controls.Add(label2);
             DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
             Name = "mainScreenPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Screen";
             Load += MainScreenPage_Load;
+            Resize += mainScreenPage_Resize;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

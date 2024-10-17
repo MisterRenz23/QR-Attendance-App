@@ -45,6 +45,7 @@
             // 
             // dataGridViewScannedUsers
             // 
+            dataGridViewScannedUsers.Anchor = AnchorStyles.None;
             dataGridViewScannedUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewScannedUsers.BackgroundColor = Color.WhiteSmoke;
             dataGridViewScannedUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -64,6 +65,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Public Sans", 20.2499981F, FontStyle.Bold);
             label1.ForeColor = Color.White;
@@ -80,6 +82,7 @@
             // 
             // exportBtn
             // 
+            exportBtn.Anchor = AnchorStyles.None;
             exportBtn.BackColor = Color.Teal;
             exportBtn.BackgroundColor = Color.Teal;
             exportBtn.BorderColor = Color.FromArgb(12, 23, 120);
@@ -89,7 +92,7 @@
             exportBtn.FlatStyle = FlatStyle.Flat;
             exportBtn.Font = new Font("Public Sans SemiBold", 10F);
             exportBtn.ForeColor = Color.WhiteSmoke;
-            exportBtn.Location = new Point(227, 564);
+            exportBtn.Location = new Point(693, 526);
             exportBtn.Name = "exportBtn";
             exportBtn.Padding = new Padding(0, 0, 0, 2);
             exportBtn.Size = new Size(110, 40);
@@ -101,6 +104,7 @@
             // 
             // BackBtn
             // 
+            BackBtn.Anchor = AnchorStyles.None;
             BackBtn.BackColor = Color.FromArgb(12, 23, 120);
             BackBtn.BackgroundColor = Color.FromArgb(12, 23, 120);
             BackBtn.BorderColor = Color.WhiteSmoke;
@@ -121,6 +125,7 @@
             // 
             // RosaryMonth
             // 
+            RosaryMonth.Anchor = AnchorStyles.None;
             RosaryMonth.BackColor = Color.Transparent;
             RosaryMonth.Font = new Font("Public Sans", 35.9999962F, FontStyle.Bold);
             RosaryMonth.ForeColor = Color.WhiteSmoke;
@@ -133,6 +138,7 @@
             // 
             // customButton1
             // 
+            customButton1.Anchor = AnchorStyles.None;
             customButton1.BackColor = Color.Teal;
             customButton1.BackgroundColor = Color.Teal;
             customButton1.BorderColor = Color.FromArgb(12, 23, 120);
@@ -142,7 +148,7 @@
             customButton1.FlatStyle = FlatStyle.Flat;
             customButton1.Font = new Font("Public Sans SemiBold", 10F);
             customButton1.ForeColor = Color.WhiteSmoke;
-            customButton1.Location = new Point(227, 518);
+            customButton1.Location = new Point(439, 527);
             customButton1.Name = "customButton1";
             customButton1.Padding = new Padding(0, 0, 0, 2);
             customButton1.Size = new Size(110, 40);
@@ -154,13 +160,15 @@
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(343, 526);
+            dateTimePicker1.Anchor = AnchorStyles.None;
+            dateTimePicker1.Location = new Point(227, 535);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(200, 23);
             dateTimePicker1.TabIndex = 9;
             // 
             // customButton2
             // 
+            customButton2.Anchor = AnchorStyles.None;
             customButton2.BackColor = Color.Teal;
             customButton2.BackgroundColor = Color.Teal;
             customButton2.BorderColor = Color.FromArgb(12, 23, 120);
@@ -170,12 +178,12 @@
             customButton2.FlatStyle = FlatStyle.Flat;
             customButton2.Font = new Font("Public Sans SemiBold", 10F);
             customButton2.ForeColor = Color.WhiteSmoke;
-            customButton2.Location = new Point(820, 526);
+            customButton2.Location = new Point(816, 526);
             customButton2.Name = "customButton2";
             customButton2.Padding = new Padding(0, 0, 0, 2);
             customButton2.Size = new Size(153, 40);
             customButton2.TabIndex = 10;
-            customButton2.Text = "Absence Summary";
+            customButton2.Text = "Absence Report";
             customButton2.TextColor = Color.WhiteSmoke;
             customButton2.UseVisualStyleBackColor = false;
             customButton2.Click += customButton2_Click;
@@ -195,12 +203,12 @@
             Controls.Add(exportBtn);
             Controls.Add(label1);
             Controls.Add(dataGridViewScannedUsers);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
             Name = "ViewAttendanceRecord";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ViewAttendanceRecord";
             Load += ViewAttendanceRecord_Load;
+            Resize += ViewAttendanceRecord_Resize;
             ((System.ComponentModel.ISupportInitialize)dataGridViewScannedUsers).EndInit();
             ResumeLayout(false);
         }

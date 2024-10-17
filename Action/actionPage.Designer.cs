@@ -45,6 +45,7 @@ namespace Project_001.Action
             // 
             // clockLabel
             // 
+            clockLabel.Anchor = AnchorStyles.None;
             clockLabel.BackColor = Color.Transparent;
             clockLabel.Font = new Font("Public Sans", 39.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             clockLabel.ForeColor = Color.WhiteSmoke;
@@ -74,6 +75,7 @@ namespace Project_001.Action
             // 
             // dateLabel
             // 
+            dateLabel.Anchor = AnchorStyles.None;
             dateLabel.BackColor = Color.Transparent;
             dateLabel.Font = new Font("Public Sans", 20.2499981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dateLabel.ForeColor = Color.WhiteSmoke;
@@ -86,6 +88,7 @@ namespace Project_001.Action
             // 
             // rosaryMonth
             // 
+            rosaryMonth.Anchor = AnchorStyles.None;
             rosaryMonth.BackColor = Color.Transparent;
             rosaryMonth.Font = new Font("Public Sans", 39.7499962F, FontStyle.Bold, GraphicsUnit.Point, 0);
             rosaryMonth.ForeColor = Color.WhiteSmoke;
@@ -98,6 +101,7 @@ namespace Project_001.Action
             // 
             // registerNewBtn
             // 
+            registerNewBtn.Anchor = AnchorStyles.None;
             registerNewBtn.BackColor = Color.FromArgb(54, 54, 148);
             registerNewBtn.BackgroundColor = Color.FromArgb(54, 54, 148);
             registerNewBtn.BorderColor = Color.PaleVioletRed;
@@ -107,7 +111,7 @@ namespace Project_001.Action
             registerNewBtn.FlatStyle = FlatStyle.Flat;
             registerNewBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             registerNewBtn.ForeColor = Color.WhiteSmoke;
-            registerNewBtn.Location = new Point(492, 496);
+            registerNewBtn.Location = new Point(492, 484);
             registerNewBtn.Name = "registerNewBtn";
             registerNewBtn.Size = new Size(209, 35);
             registerNewBtn.TabIndex = 8;
@@ -118,6 +122,7 @@ namespace Project_001.Action
             // 
             // checkAttendanceBtn
             // 
+            checkAttendanceBtn.Anchor = AnchorStyles.None;
             checkAttendanceBtn.BackColor = Color.FromArgb(20, 174, 92);
             checkAttendanceBtn.BackgroundColor = Color.FromArgb(20, 174, 92);
             checkAttendanceBtn.BackgroundImageLayout = ImageLayout.None;
@@ -128,7 +133,7 @@ namespace Project_001.Action
             checkAttendanceBtn.FlatStyle = FlatStyle.Flat;
             checkAttendanceBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             checkAttendanceBtn.ForeColor = Color.WhiteSmoke;
-            checkAttendanceBtn.Location = new Point(492, 420);
+            checkAttendanceBtn.Location = new Point(492, 399);
             checkAttendanceBtn.Name = "checkAttendanceBtn";
             checkAttendanceBtn.Size = new Size(209, 56);
             checkAttendanceBtn.TabIndex = 9;
@@ -139,8 +144,9 @@ namespace Project_001.Action
             // 
             // AccStatusBtn
             // 
-            AccStatusBtn.BackColor = Color.Red;
-            AccStatusBtn.BackgroundColor = Color.Red;
+            AccStatusBtn.Anchor = AnchorStyles.None;
+            AccStatusBtn.BackColor = Color.OrangeRed;
+            AccStatusBtn.BackgroundColor = Color.OrangeRed;
             AccStatusBtn.BorderColor = Color.PaleVioletRed;
             AccStatusBtn.BorderRadius = 8;
             AccStatusBtn.BorderSize = 0;
@@ -148,7 +154,7 @@ namespace Project_001.Action
             AccStatusBtn.FlatStyle = FlatStyle.Flat;
             AccStatusBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AccStatusBtn.ForeColor = Color.WhiteSmoke;
-            AccStatusBtn.Location = new Point(492, 537);
+            AccStatusBtn.Location = new Point(492, 525);
             AccStatusBtn.Name = "AccStatusBtn";
             AccStatusBtn.Size = new Size(209, 35);
             AccStatusBtn.TabIndex = 10;
@@ -173,13 +179,14 @@ namespace Project_001.Action
             Controls.Add(digitalDate);
             Controls.Add(clockLabel);
             DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
             Name = "actionPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Action Page";
             TransparencyKey = Color.Transparent;
             Load += ActionPage_Load_1;
+            SizeChanged += actionPage_SizeChanged;
+            Resize += ActionPage_Resize;
             ResumeLayout(false);
             PerformLayout();
         }
